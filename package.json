@@ -1,5 +1,5 @@
 {
-  "name": "textsim-search",
+  "name": "check-search",
   "version": "1.0.0",
   "description": "",
   "main": ".index.js",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "test": "jest",
+    "test": "jest --coverage src",
     "create": "webpack"
   },
   "keywords": [],
