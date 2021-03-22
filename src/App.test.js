@@ -4,8 +4,8 @@ import App from './App.js';
 
 test('App renders', () => {
   const component = renderer.create(
-    <App/>
+    <App />,
   );
-  let tree = component.toJSON();
+  const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });

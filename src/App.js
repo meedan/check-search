@@ -3,11 +3,8 @@ import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
-  Paper,
   Button,
-  Container,
   Drawer,
-  IconButton,
   Divider,
   AppBar,
   Toolbar,
@@ -20,23 +17,18 @@ import {
   Checkbox,
   Collapse,
   TextField,
-  Box,
   Grid,
-  GridItem,
   InputAdornment,
-  } from '@material-ui/core';
+} from '@material-ui/core';
 import {
-  Menu as MenuIcon,
-  Inbox as InboxIcon,
-  Mail as MailIcon,
   Search as SearchIcon,
   ExpandLess,
   ExpandMore,
-  } from '@material-ui/icons';
+} from '@material-ui/icons';
 
 const drawerWidth = 240;
 
-const theme = createMuiTheme({
+const muiTheme = createMuiTheme({
   palette: {
     primary: {
       main: '#2f80ed',
@@ -76,50 +68,50 @@ function FilterContentType() {
   };
 
   return (
-  <div>
-    <ListItem button onClick={handleClick}>
-      <ListItemText>Content Type</ListItemText>
-      {open ? <ExpandLess /> : <ExpandMore />}
-    </ListItem>
-    <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        <ListItem button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={1} primary={`All`} />
-        </ListItem>
-        <Divider />
-        <ListItem button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={2} primary={`Report published`} />
-        </ListItem>
-        <ListItem button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={3} primary={`Query submissions`} />
-        </ListItem>
-      </List>
-    </Collapse>
-  </div>
+    <div>
+      <ListItem button onClick={handleClick}>
+        <ListItemText>Content Type</ListItemText>
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={false}
+                tabIndex={-1}
+                disableRipple
+              />
+            </ListItemIcon>
+            <ListItemText id={1} primary="All" />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={false}
+                tabIndex={-1}
+                disableRipple
+              />
+            </ListItemIcon>
+            <ListItemText id={2} primary="Report published" />
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={false}
+                tabIndex={-1}
+                disableRipple
+              />
+            </ListItemIcon>
+            <ListItemText id={3} primary="Query submissions" />
+          </ListItem>
+        </List>
+      </Collapse>
+    </div>
   );
 }
 
@@ -134,64 +126,27 @@ function FilterOrganizations() {
   const organizations = ['India Today', 'Globo', 'Factly'];
 
   return (
-  <div>
-    <ListItem button onClick={handleClick}>
-      <ListItemText>Organizatons</ListItemText>
-      {open ? <ExpandLess /> : <ExpandMore />}
-    </ListItem>
-    <Collapse in={open} timeout="auto" unmountOnExit>
-      <TextField
-        type="search"
-        id="search"
-        label="Search"
-        variant="outlined"
-        InputProps={{
-          startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
-        }}
-      />
-      <List component="div" disablePadding>
-        <ListItem key="1" button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={1} primary={`All`} />
-        </ListItem>
-        <Divider />
-        <ListItem key="2" button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={2} primary={`Meedan users`} />
-        </ListItem>
-        <ListItem key="3" button className={classes.nested}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={false}
-              tabIndex={-1}
-              disableRipple
-            />
-          </ListItemIcon>
-          <ListItemText id={3} primary={`Non-Meedan users`} />
-        </ListItem>
-        <Divider />
-        { organizations.map( (value, index) => {
-        return (
-          <ListItem
-            key={index+4}
-            button
-            className={classes.nested}
-          >
+    <div>
+      <ListItem button onClick={handleClick}>
+        <ListItemText>Organizatons</ListItemText>
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <TextField
+          type="search"
+          id="search"
+          label="Search"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <List component="div" disablePadding>
+          <ListItem key="1" button className={classes.nested}>
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -200,13 +155,48 @@ function FilterOrganizations() {
                 disableRipple
               />
             </ListItemIcon>
-            <ListItemText id={index+4} primary={value} />
+            <ListItemText id={1} primary="All" />
           </ListItem>
-        )
-        })}
-      </List>
-    </Collapse>
-  </div>
+          <Divider />
+          <ListItem key="2" button className={classes.nested}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={false}
+                tabIndex={-1}
+                disableRipple
+              />
+            </ListItemIcon>
+            <ListItemText id={2} primary="Meedan users" />
+          </ListItem>
+          <ListItem key="3" button className={classes.nested}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={false}
+                tabIndex={-1}
+                disableRipple
+              />
+            </ListItemIcon>
+            <ListItemText id={3} primary="Non-Meedan users" />
+          </ListItem>
+          <Divider />
+          {organizations.map((value, index) => (
+            <ListItem key={value} button className={classes.nested}>
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={false}
+                  tabIndex={-1}
+                  disableRipple
+                />
+              </ListItemIcon>
+              <ListItemText id={index + 4} primary={value} />
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+    </div>
   );
 }
 
@@ -214,7 +204,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={muiTheme}>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
@@ -235,7 +225,9 @@ function App() {
           <div className={classes.drawerContainer}>
             <List>
               <ListItem>
-                <Typography variant="h6" noWrap>Filters</Typography>
+                <Typography variant="h6" noWrap>
+                  Filters
+                </Typography>
               </ListItem>
               <FilterContentType />
               <FilterOrganizations />
@@ -252,9 +244,7 @@ function App() {
             spacing={2}
           >
             <Grid item xs={12}>
-              <Typography variant="h6">
-                Report Database
-              </Typography>
+              <Typography variant="h6">Report Database</Typography>
             </Grid>
             <Grid item xs={8}>
               <TextField
@@ -262,15 +252,15 @@ function App() {
                 id="search"
                 label="Search"
                 variant="outlined"
-								InputProps={{
-									startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
-								}}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
-              <Button
-                align="left"
-                variant="contained"
-                color="primary"
-              >
+              <Button align="left" variant="contained" color="primary">
                 Search
               </Button>
             </Grid>
