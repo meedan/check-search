@@ -1,0 +1,78 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "airbnb",
+        "plugin:require-path-exists/recommended",
+    ],
+    "globals": {
+        "describe": true,
+        "it": true,
+    },
+    "plugins": [
+        "require-path-exists",
+    ],
+    "rules": {
+        "indent": [2, 2],
+
+        // Relax, React!
+        "react/jsx-filename-extension": "off",
+        "react/jsx-no-bind": "off",
+        "react/prop-types": "off",
+        "react/forbid-prop-types": "off",
+        "react/no-children-prop": "off",
+
+        // TODO Fix a11y issues
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/anchor-has-content": "off",
+
+        // Configure valid anchors with <Link>
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "Link" ],
+            "specialLink": [ "to" ],
+            "aspects": [ "noHref", "invalidHref", "preferButton" ]
+        }],
+
+        "jsx-a11y/label-has-for": [ 2, {
+            "components": [],
+            "required": {
+                "some": [ "nesting", "id" ]
+            },
+            "allowChildren": true
+        }],
+
+        // TODO Reconfigure eslint to be aware of our configuration
+        // files we import without extensions (or set this rule to "off")
+        "import/no-extraneous-dependencies": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+
+        // TODO
+        "class-methods-use-this": ["error", { "exceptMethods": ["getMutation", "getFatQuery", "getConfigs"] }],
+
+        // Styled components uses the "confusing" arrows
+        "no-confusing-arrow": "off",
+
+        // Don't worry about spacing in comments
+        "no-irregular-whitespace": ["error", { "skipComments": true }],
+
+        // TODO Consider standardizing on camelCase
+        "camelcase": "off",
+
+        "max-len": "off",
+        "function-paren-newline": "off",
+    },
+    "overrides": [
+        {
+            // https://github.com/benmosher/eslint-plugin-import/issues/544
+            "files": ["src/app/components/**"],
+            "rules": {
+                "import/no-named-as-default": "off"
+            }
+        }
+    ]
+}
