@@ -1,5 +1,5 @@
 import React from 'react';
-import {  
+import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
@@ -23,11 +23,13 @@ import {
   Box,
   Grid,
   GridItem,
+  InputAdornment,
   } from '@material-ui/core';
 import {
   Menu as MenuIcon,
   Inbox as InboxIcon,
   Mail as MailIcon,
+  Search as SearchIcon,
   ExpandLess,
   ExpandMore,
   } from '@material-ui/icons';
@@ -138,6 +140,15 @@ function FilterOrganizations() {
       {open ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
     <Collapse in={open} timeout="auto" unmountOnExit>
+      <TextField
+        type="search"
+        id="search"
+        label="Search"
+        variant="outlined"
+        InputProps={{
+          startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+        }}
+      />
       <List component="div" disablePadding>
         <ListItem key="1" button className={classes.nested}>
           <ListItemIcon>
@@ -176,7 +187,11 @@ function FilterOrganizations() {
         <Divider />
         { organizations.map( (value, index) => {
         return (
-          <ListItem key={index+4} button className={classes.nested}>
+          <ListItem
+            key={index+4}
+            button
+            className={classes.nested}
+          >
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -229,13 +244,35 @@ function App() {
         </Drawer>
         <main className={classes.content}>
           <Toolbar />
-          <Grid container justify="center" align="center" alignItems="center" spacing={2}>
+          <Grid
+            container
+            justify="center"
+            align="center"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item xs={12}>
-              <Typography variant="h6">Report Database</Typography>
+              <Typography variant="h6">
+                Report Database
+              </Typography>
             </Grid>
             <Grid item xs={8}>
-              <TextField type="search" id="search" label="Search" variant="outlined" />
-              <Button align="left" variant="contained" color="primary">Search</Button>
+              <TextField
+                type="search"
+                id="search"
+                label="Search"
+                variant="outlined"
+								InputProps={{
+									startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+								}}
+              />
+              <Button
+                align="left"
+                variant="contained"
+                color="primary"
+              >
+                Search
+              </Button>
             </Grid>
           </Grid>
         </main>
