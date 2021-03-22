@@ -12,6 +12,7 @@
   "scripts": {
     "start": "webpack-dev-server --open",
     "test": "jest --coverage src",
+    "watch": "jest --watch --coverage src",
     "create": "webpack"
   },
   "keywords": [],
