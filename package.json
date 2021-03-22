@@ -14,7 +14,8 @@
     "test": "jest --coverage src",
     "watch": "jest --watch --coverage src",
     "test:lint": "eslint src",
-    "create": "webpack"
+    "serve": "webpack",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",

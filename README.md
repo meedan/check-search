@@ -22,3 +22,16 @@ $ npm start
 
 # the frontend should now be available at http://localhost:8001
 ```
+
+## Using Docker
+
+Make sure Docker and `docker-compose` are installed.
+
+```bash
+# clone repository
+$ git clone git@github.com:meedan/check-search.git
+
+$ docker-compose up
+
+# the frontend should now be available at http://localhost:8001
+```

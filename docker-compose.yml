@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  search:
+    build: .
+    ports:
+        - 8001:8001
+    build:
+      context: .
+    environment:
+      - DEPLOY_ENV
