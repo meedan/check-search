@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import {
   makeStyles,
   createMuiTheme,
@@ -25,6 +26,7 @@ import {
   ExpandLess,
   ExpandMore,
 } from '@material-ui/icons';
+import messages from '../localization/messages';
 
 const drawerWidth = 240;
 
@@ -70,7 +72,9 @@ function FilterContentType() {
   return (
     <div>
       <ListItem button onClick={handleClick}>
-        <ListItemText>Content Type</ListItemText>
+        <ListItemText>
+          <FormattedMessage id="filters.type" />
+        </ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -128,14 +132,15 @@ function FilterOrganizations() {
   return (
     <div>
       <ListItem button onClick={handleClick}>
-        <ListItemText>Organizatons</ListItemText>
+        <ListItemText>
+          <FormattedMessage id="filters.organizations" />
+        </ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <TextField
           type="search"
           id="search"
-          label="Search"
           variant="outlined"
           InputProps={{
             startAdornment: (
@@ -202,72 +207,77 @@ function FilterOrganizations() {
 
 function App() {
   const classes = useStyles();
+  const locale = 'es';
 
   return (
-    <ThemeProvider theme={muiTheme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" noWrap>
-              Similarity Search Prototype
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Toolbar />
-          <div className={classes.drawerContainer}>
-            <List>
-              <ListItem>
-                <Typography variant="h6" noWrap>
-                  Filters
-                </Typography>
-              </ListItem>
-              <FilterContentType />
-              <FilterOrganizations />
-            </List>
-          </div>
-        </Drawer>
-        <main className={classes.content}>
-          <Toolbar />
-          <Grid
-            container
-            justify="center"
-            align="center"
-            alignItems="center"
-            spacing={2}
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <ThemeProvider theme={muiTheme}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <Typography variant="h6" noWrap>
+                <FormattedMessage id="homepage.title" />
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
           >
-            <Grid item xs={12}>
-              <Typography variant="h6">Report Database</Typography>
+            <Toolbar />
+            <div className={classes.drawerContainer}>
+              <List>
+                <ListItem>
+                  <Typography variant="h6" noWrap>
+                    <FormattedMessage id="sidebar.filters" />
+                  </Typography>
+                </ListItem>
+                <FilterContentType />
+                <FilterOrganizations />
+              </List>
+            </div>
+          </Drawer>
+          <main className={classes.content}>
+            <Toolbar />
+            <Grid
+              container
+              justify="center"
+              align="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item xs={12}>
+                <Typography variant="h6">
+                  <FormattedMessage id="search.title" />
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  type="search"
+                  id="search"
+                  label={messages[locale]['search.action']}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <Button align="left" variant="contained" color="primary">
+                  <FormattedMessage id="search.action" />
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={8}>
-              <TextField
-                type="search"
-                id="search"
-                label="Search"
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Button align="left" variant="contained" color="primary">
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        </main>
-      </div>
-    </ThemeProvider>
+          </main>
+        </div>
+      </ThemeProvider>
+    </IntlProvider>
   );
 }
 export default App;
