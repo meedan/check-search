@@ -28,6 +28,7 @@ import {
 } from '@material-ui/icons';
 import messages from '../localization/messages';
 import Filter from './Filter';
+import Sidebar from './Sidebar';
 import { useQuery } from 'jsonapi-react';
 
 const drawerWidth = 296;
@@ -47,17 +48,6 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: 'auto',
-    padding: theme.spacing(3),
-  },
   content: {
     padding: theme.spacing(3),
     width: '100%',
@@ -71,8 +61,6 @@ function App() {
   const classes = useStyles();
   const locale = 'es';
 
-  const workspacesQuery = useQuery('workspaces');
-
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
       <ThemeProvider theme={muiTheme}>
@@ -85,33 +73,7 @@ function App() {
               </Typography>
             </Toolbar>
           </AppBar>
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <Toolbar />
-            <div className={classes.drawerContainer}>
-              <List>
-                <ListItem>
-                  <Typography variant="h6" noWrap>
-                    <FormattedMessage id="sidebar.filters" />
-                  </Typography>
-                </ListItem>
-                <Filter
-                  localizedTitle="filters.type"
-                  items={[['All'], ['Report published', 'Query submissions']]}
-                />
-                <Filter
-                  localizedTitle="filters.organizations"
-                  items={[['All'], ['Meedan users', 'Non-Meedan users']]}
-                  query={workspacesQuery}
-                />
-              </List>
-            </div>
-          </Drawer>
+          <Sidebar />
           <main className={classes.content}>
             <Toolbar />
             <Grid container justify="center" align="center" alignItems="center">
