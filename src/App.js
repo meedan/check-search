@@ -27,8 +27,10 @@ import {
   ExpandMore,
 } from '@material-ui/icons';
 import messages from '../localization/messages';
+import Filter from './Filter';
+import { useQuery } from 'jsonapi-react';
 
-const drawerWidth = 240;
+const drawerWidth = 296;
 
 const muiTheme = createMuiTheme({
   palette: {
@@ -54,160 +56,22 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerContainer: {
     overflow: 'auto',
+    padding: theme.spacing(3),
   },
   content: {
     padding: theme.spacing(3),
     width: '100%',
   },
+  searchButton: {
+    margin: theme.spacing(1),
+  },
 }));
-
-function FilterContentType() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <div>
-      <ListItem button onClick={handleClick}>
-        <ListItemText>
-          <FormattedMessage id="filters.type" />
-        </ListItemText>
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={1} primary="All" />
-          </ListItem>
-          <Divider />
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={2} primary="Report published" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={3} primary="Query submissions" />
-          </ListItem>
-        </List>
-      </Collapse>
-    </div>
-  );
-}
-
-function FilterOrganizations() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const organizations = ['India Today', 'Globo', 'Factly'];
-
-  return (
-    <div>
-      <ListItem button onClick={handleClick}>
-        <ListItemText>
-          <FormattedMessage id="filters.organizations" />
-        </ListItemText>
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <TextField
-          type="search"
-          id="search"
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <List component="div" disablePadding>
-          <ListItem key="1" button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={1} primary="All" />
-          </ListItem>
-          <Divider />
-          <ListItem key="2" button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={2} primary="Meedan users" />
-          </ListItem>
-          <ListItem key="3" button className={classes.nested}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={false}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={3} primary="Non-Meedan users" />
-          </ListItem>
-          <Divider />
-          {organizations.map((value, index) => (
-            <ListItem key={value} button className={classes.nested}>
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={false}
-                  tabIndex={-1}
-                  disableRipple
-                />
-              </ListItemIcon>
-              <ListItemText id={index + 4} primary={value} />
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </div>
-  );
-}
 
 function App() {
   const classes = useStyles();
   const locale = 'es';
+
+  const workspacesQuery = useQuery('workspaces');
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
@@ -236,20 +100,21 @@ function App() {
                     <FormattedMessage id="sidebar.filters" />
                   </Typography>
                 </ListItem>
-                <FilterContentType />
-                <FilterOrganizations />
+                <Filter
+                  localizedTitle="filters.type"
+                  items={[['All'], ['Report published', 'Query submissions']]}
+                />
+                <Filter
+                  localizedTitle="filters.organizations"
+                  items={[['All'], ['Meedan users', 'Non-Meedan users']]}
+                  query={workspacesQuery}
+                />
               </List>
             </div>
           </Drawer>
           <main className={classes.content}>
             <Toolbar />
-            <Grid
-              container
-              justify="center"
-              align="center"
-              alignItems="center"
-              spacing={2}
-            >
+            <Grid container justify="center" align="center" alignItems="center">
               <Grid item xs={12}>
                 <Typography variant="h6">
                   <FormattedMessage id="search.title" />
@@ -269,7 +134,12 @@ function App() {
                     ),
                   }}
                 />
-                <Button align="left" variant="contained" color="primary">
+                <Button
+                  align="left"
+                  variant="contained"
+                  color="primary"
+                  className={classes.searchButton}
+                >
                   <FormattedMessage id="search.action" />
                 </Button>
               </Grid>

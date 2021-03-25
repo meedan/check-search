@@ -25,6 +25,9 @@ module.exports = {
         ]
     },
     mode: 'development',
+    resolve: {
+      symlinks: true,
+    },
     plugins: [
 
         new HtmlWebpackPlugin({

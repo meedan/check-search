@@ -1,3 +1,5 @@
 window.config = {
   appName: 'check',
+  selfHost: 'localhost:8001',
+  restBaseUrl: 'http://localhost:3000/api/',
 }
