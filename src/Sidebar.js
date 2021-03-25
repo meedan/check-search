@@ -1,34 +1,15 @@
 import React from 'react';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
-  createMuiTheme,
-  ThemeProvider,
-  Button,
   Drawer,
-  Divider,
-  AppBar,
   Toolbar,
   Typography,
-  CssBaseline,
   List,
   ListItem,
-  ListItemText,
-  ListItemIcon,
-  Checkbox,
-  Collapse,
-  TextField,
-  Grid,
-  InputAdornment,
 } from '@material-ui/core';
-import {
-  Search as SearchIcon,
-  ExpandLess,
-  ExpandMore,
-} from '@material-ui/icons';
-import messages from '../localization/messages';
-import Filter from './Filter';
 import { useQuery } from 'jsonapi-react';
+import Filter from './Filter';
 
 const drawerWidth = 296;
 

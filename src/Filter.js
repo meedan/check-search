@@ -1,16 +1,7 @@
 import React from 'react';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
-  makeStyles,
-  createMuiTheme,
-  ThemeProvider,
-  Button,
-  Drawer,
   Divider,
-  AppBar,
-  Toolbar,
-  Typography,
-  CssBaseline,
   List,
   ListItem,
   ListItemText,
@@ -18,7 +9,6 @@ import {
   Checkbox,
   Collapse,
   TextField,
-  Grid,
   InputAdornment,
 } from '@material-ui/core';
 import {
@@ -26,17 +16,18 @@ import {
   ExpandLess,
   ExpandMore,
 } from '@material-ui/icons';
-import messages from '../localization/messages';
 
 function Filter(props) {
   const [open, setOpen] = React.useState(true);
+  const { query, localizedTitle, search, items } = props;
 
   const handleClick = () => {
     setOpen(!open);
   };
 
-  function QueryItems(props) {
-    const { data, meta, error, isLoading, isFetching } = props.query;
+  function QueryItems() {
+    const { data, isLoading } = query;
+
     return (
       <>
         <Divider />
@@ -66,12 +57,12 @@ function Filter(props) {
     <div>
       <ListItem button onClick={handleClick}>
         <ListItemText>
-          <FormattedMessage id={props.localizedTitle} />
+          <FormattedMessage id={localizedTitle} />
         </ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {props.search ? (
+        {search ? (
           <TextField
             type="search"
             id="search"
@@ -88,10 +79,13 @@ function Filter(props) {
           <></>
         )}
         <List component="div" disablePadding>
-          {props.items
+          {items
             .reduce((acc, cur) => acc.concat('|').concat(cur))
-            .map((text, index) => {
-              return text === '|' ? (
+            .map((text, index) =>
+              // Disabling react index-key rule because we are dividing
+              // up a simple array.
+              /* eslint-disable react/no-array-index-key */
+              text === '|' ? (
                 <Divider key={index} />
               ) : (
                 <ListItem button key={index}>
@@ -105,9 +99,10 @@ function Filter(props) {
                   </ListItemIcon>
                   <ListItemText id={1} primary={text} />
                 </ListItem>
-              );
-            })}
-          {props.query ? <QueryItems query={props.query} /> : <></>}
+              /* eslint-enable react/no-array-index-key */
+              ),
+            )}
+          {query ? <QueryItems query={query} /> : <></>}
         </List>
       </Collapse>
     </div>

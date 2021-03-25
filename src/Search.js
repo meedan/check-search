@@ -1,34 +1,16 @@
 import React from 'react';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
-  createMuiTheme,
-  ThemeProvider,
   Button,
-  Drawer,
-  Divider,
-  AppBar,
   Toolbar,
   Typography,
-  CssBaseline,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Checkbox,
-  Collapse,
   TextField,
   Grid,
   InputAdornment,
 } from '@material-ui/core';
-import {
-  Search as SearchIcon,
-  ExpandLess,
-  ExpandMore,
-} from '@material-ui/icons';
+import { Search as SearchIcon } from '@material-ui/icons';
 import messages from '../localization/messages';
-import Filter from './Filter';
-import { useQuery } from 'jsonapi-react';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -42,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
+  const { locale } = props;
   return (
     <main className={classes.content}>
       <Toolbar />
@@ -55,7 +38,7 @@ function Search(props) {
           <TextField
             type="search"
             id="search"
-            label={messages[props.locale]['search.action']}
+            label={messages[locale]['search.action']}
             variant="outlined"
             InputProps={{
               startAdornment: (

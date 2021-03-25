@@ -10,17 +10,17 @@ const client = new ApiClient({
   url: 'http://cormorant:3000/api/v2/',
   schema: {
     workspaces: {
-      type: 'workspaces'
+      type: 'workspaces',
     },
     items: {
-      type: 'items'
+      type: 'items',
     },
   },
   headers: {
-    'Accept': 'application/vnd.api+json',
+    Accept: 'application/vnd.api+json',
     'X-Check-Token': 'dev',
-  }
-})
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,5 +28,5 @@ ReactDOM.render(
       <App />
     </ApiProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

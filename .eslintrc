@@ -65,6 +65,10 @@
 
         "max-len": "off",
         "function-paren-newline": "off",
+
+        // experimenting with Prettier styling
+        "implicit-arrow-linebreak": "off",
+        "object-curly-newline": "off",
     },
     "overrides": [
         {

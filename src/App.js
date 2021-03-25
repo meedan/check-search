@@ -4,35 +4,14 @@ import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
-  Button,
-  Drawer,
-  Divider,
   AppBar,
   Toolbar,
   Typography,
   CssBaseline,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Checkbox,
-  Collapse,
-  TextField,
-  Grid,
-  InputAdornment,
 } from '@material-ui/core';
-import {
-  Search as SearchIcon,
-  ExpandLess,
-  ExpandMore,
-} from '@material-ui/icons';
 import messages from '../localization/messages';
-import Filter from './Filter';
 import Sidebar from './Sidebar';
 import Search from './Search';
-import { useQuery } from 'jsonapi-react';
-
-const drawerWidth = 296;
 
 const muiTheme = createMuiTheme({
   palette: {
