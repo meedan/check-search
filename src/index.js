@@ -23,10 +23,8 @@ const client = new ApiClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApiProvider client={client}>
-      <App />
-    </ApiProvider>
-  </React.StrictMode>,
+  <ApiProvider client={client}>
+    <App />
+  </ApiProvider>,
   document.getElementById('root'),
 );
