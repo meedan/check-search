@@ -11,9 +11,9 @@ Make sure to have node.js v15+ installed.
 # clone repository
 $ git clone git@github.com:meedan/check-search.git
 
-# install dependencies
+# install dependencies (temporarily requires we enable legacy peer dependency behavior)
 $ cd check-search/
-$ npm i
+$ npm i --legacy-peer-deps
 
 # copy and set your configuration
 
