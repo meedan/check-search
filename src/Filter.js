@@ -33,10 +33,10 @@ function Filter(props) {
         <Divider />
         {isLoading ? (
           // TODO: replace with spinner
-          <div>loading</div>
+          <div className="loading-message">loading</div>
         ) : (
           data.map((workspace, index) => (
-            <ListItem key={workspace.id} button>
+            <ListItem key={workspace.id} button className="query-item">
               <ListItemIcon>
                 <Checkbox
                   edge="start"
@@ -86,9 +86,9 @@ function Filter(props) {
               // up a simple array.
               /* eslint-disable react/no-array-index-key */
               text === '|' ? (
-                <Divider key={index} />
+                <Divider key={index} className="divider" />
               ) : (
-                <ListItem button key={index}>
+                <ListItem button key={index} className="item">
                   <ListItemIcon>
                     <Checkbox
                       edge="start"
@@ -99,7 +99,7 @@ function Filter(props) {
                   </ListItemIcon>
                   <ListItemText id={1} primary={text} />
                 </ListItem>
-              /* eslint-enable react/no-array-index-key */
+                /* eslint-enable react/no-array-index-key */
               ),
             )}
           {query ? <QueryItems query={query} /> : <></>}
