@@ -1,0 +1,17 @@
+name: Continuous Integration
+
+on: [push]
+
+jobs:
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run ESLint
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+    - run: npm ci
+    - run: npm run test:lint
