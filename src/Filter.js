@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
+  makeStyles,
   Divider,
   List,
   ListItem,
@@ -10,6 +11,7 @@ import {
   Collapse,
   TextField,
   InputAdornment,
+  CircularProgress,
 } from '@material-ui/core';
 import {
   Search as SearchIcon,
@@ -17,7 +19,16 @@ import {
   ExpandMore,
 } from '@material-ui/icons';
 
+const useStyles = makeStyles((theme) => ({
+  loading: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(3),
+  },
+}));
+
 function Filter(props) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const { query, localizedTitle, search, items } = props;
 
@@ -33,7 +44,9 @@ function Filter(props) {
         <Divider />
         {isLoading ? (
           // TODO: replace with spinner
-          <div className="loading-message">loading</div>
+          <div className={classes.loading}>
+            <CircularProgress />
+          </div>
         ) : (
           data.map((workspace, index) => (
             <ListItem key={workspace.id} button className="query-item">

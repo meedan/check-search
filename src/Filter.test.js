@@ -57,7 +57,7 @@ describe('<Filter />', () => {
     );
   });
 
-  it('renders hard coded items and a loading message while query is running', () => {
+  it('renders hard coded items and a loading spinner while query is running', () => {
     const query = {
       isLoading: true,
       isFetching: true,
@@ -69,7 +69,7 @@ describe('<Filter />', () => {
     // Check for hard-coded items
     expect(wrapper.find('.item').first().text()).toEqual('Item 1A');
     expect(wrapper.find('.item').last().text()).toEqual('Item 3C');
-    // Look for loading message
-    expect(wrapper.find('.loading-message').length).toBe(1);
+    // Look for loading spinner
+    expect(wrapper.find('.MuiCircularProgress-root').length).toBe(1);
   });
 });
