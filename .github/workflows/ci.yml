@@ -3,8 +3,8 @@ name: Continuous Integration
 on: [push]
 
 jobs:
-  lint:
-    name: Linter
+  lint-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
 
     steps:
@@ -14,5 +14,5 @@ jobs:
       with:
         node-version: 15.x
     - run: npm ci
-    - run: npm test
     - run: npm run test:lint
+    - run: npm test

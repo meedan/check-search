@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Sidebar from './Sidebar.js';
 import { ApiClient, ApiProvider } from 'jsonapi-react';
+import Sidebar from './Sidebar.js';
 
 global.fetch = jest.fn(() => Promise.resolve());
 
