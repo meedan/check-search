@@ -12,8 +12,8 @@ const client = new ApiClient({
     workspaces: {
       type: 'workspaces',
     },
-    items: {
-      type: 'items',
+    reports: {
+      type: 'reports',
     },
   },
   headers: {
