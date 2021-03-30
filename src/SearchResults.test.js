@@ -10,7 +10,7 @@ describe('<SearchResults />', () => {
   it('renders an error message when passed non-array results', () => {
     const results = 'this is not an array';
     const wrapper = mountWithIntl(
-      <SearchResults error={{}} results={results} />,
+      <SearchResults error={{}} results={results} locale="en" />,
     );
     expect(
       wrapper.find('.MuiTypography-root.search-error-message').length,
