@@ -14,5 +14,6 @@ jobs:
       with:
         node-version: 15.x
     - run: npm ci
+    - run: cp config.js.example config.js
     - run: npm run test:lint
     - run: npm test
