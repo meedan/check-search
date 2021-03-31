@@ -7,21 +7,18 @@ Frontend client for Check's similarity search APIs.
 Make sure to have node.js v15+ installed.
 
 ```bash
-
 # clone repository
 $ git clone git@github.com:meedan/check-search.git
-
-# install dependencies (temporarily requires we enable legacy peer dependency behavior)
 $ cd check-search/
-$ npm i --legacy-peer-deps
 
-# copy and set your configuration
+# Run setup script. This will install dependencies, and copy and set your configuration
+$ bin/setup.sh
 
 # run the dev server
 $ npm start
-
-# the frontend should now be available at http://localhost:8001
 ```
+
+The frontend should now be available at http://localhost:8001
 
 ## Using Docker
 

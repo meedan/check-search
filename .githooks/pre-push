@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -e
+
+# Which branch are we on
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# If we are on develop
+if [ $branch = "develop" ] || [ $branch = "main" ]; then
+
+    # Run linter
+    printf "\e[1;33mpre-push:\e[0m ESLint\n"
+    npm run test:lint
+    if [ $? -eq 0 ]
+    then
+        printf "\e[1;32mSuccessful:\e[0m ESLint\n"
+    else
+        printf "\e[1;31mError:\e[0m ESLint\n"
+        exit 1
+    fi
+
+    printf "\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+
+    # Run tests
+    printf "\e[1;33mpre-push:\e[0m Jest\n"
+    npm test
+    if [ $? -eq 0 ]
+    then
+        printf "\e[1;32mSuccessful:\e[0m Jest\n"
+    else
+        printf "\e[1;31mError:\e[0m Jest\n"
+        exit 1
+    fi
+fi
+
+exit 0

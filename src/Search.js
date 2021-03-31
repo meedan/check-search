@@ -57,8 +57,8 @@ function Search(props) {
     let data = [];
     try {
       data = await getData();
-    } catch (e) {
-      setError({ hasError: true, message: e.toString() });
+    } catch (err) {
+      setError({ hasError: true, message: err.toString() });
     } finally {
       if (data) {
         setResults(data);
@@ -105,6 +105,7 @@ function Search(props) {
                 ),
               }}
               fullWidth
+              autoFocus
               onChange={(e) => setSearchText(e.target.value)}
             />
           </Grid>

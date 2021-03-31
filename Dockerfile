@@ -7,7 +7,7 @@ RUN useradd -ms /bin/bash -g search search
 RUN chown search:search .
 
 COPY --chown=search:search package.json package-lock.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY --chown=search:search . .
 

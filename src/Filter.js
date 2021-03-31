@@ -43,7 +43,6 @@ function Filter(props) {
       <>
         <Divider />
         {isLoading ? (
-          // TODO: replace with spinner
           <div className={classes.loading}>
             <CircularProgress />
           </div>
