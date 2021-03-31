@@ -31,7 +31,6 @@ function SearchError(props) {
         <Card variant="outlined">
           <CardContent>
             <Typography
-              id="foo"
               className={`${classes.error} search-error-message`}
               variant="h6"
             >

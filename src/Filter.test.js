@@ -72,4 +72,18 @@ describe('<Filter />', () => {
     // Look for loading spinner
     expect(wrapper.find('.MuiCircularProgress-root').length).toBe(1);
   });
+
+  it('renders an error message when query fails', () => {
+    const query = {
+      isLoading: false,
+      error: { status: 500, title: 'something went wrong' },
+    };
+    const wrapper = mountWithIntl(
+      <Filter localizedTitle="test.message" items={items} query={query} />,
+    );
+    // Error message was found and rendered
+    expect(
+      wrapper.find('.MuiTypography-root.filter-error-message').length,
+    ).toEqual(1);
+  });
 });

@@ -11,6 +11,7 @@ import {
   Collapse,
   TextField,
   InputAdornment,
+  Typography,
   CircularProgress,
 } from '@material-ui/core';
 import {
@@ -25,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     padding: theme.spacing(3),
   },
+  error: {
+    padding: theme.spacing(3),
+    color: 'red',
+  },
 }));
 
 function Filter(props) {
@@ -36,31 +41,45 @@ function Filter(props) {
     setOpen(!open);
   };
 
-  function QueryItems() {
-    const { data, isLoading } = query;
+  function QueryItems(queryProps) {
+    const { data, error, isLoading } = queryProps.query;
+
+    let element;
+    if (isLoading) {
+      element = (
+        <div className={classes.loading}>
+          <CircularProgress />
+        </div>
+      );
+    } else if (error) {
+      element = (
+        <Typography
+          className={`${classes.error} filter-error-message`}
+          variant="h6"
+        >
+          {`Error ${error.status} fetching organizations: ${error.title}`}
+        </Typography>
+      );
+    } else {
+      element = data.map((workspace, index) => (
+        <ListItem key={workspace.id} button className="query-item">
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={false}
+              tabIndex={-1}
+              disableRipple
+            />
+          </ListItemIcon>
+          <ListItemText id={index} primary={workspace.name} />
+        </ListItem>
+      ));
+    }
 
     return (
       <>
         <Divider />
-        {isLoading ? (
-          <div className={classes.loading}>
-            <CircularProgress />
-          </div>
-        ) : (
-          data.map((workspace, index) => (
-            <ListItem key={workspace.id} button className="query-item">
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={false}
-                  tabIndex={-1}
-                  disableRipple
-                />
-              </ListItemIcon>
-              <ListItemText id={index} primary={workspace.name} />
-            </ListItem>
-          ))
-        )}
+        {element}
       </>
     );
   }
