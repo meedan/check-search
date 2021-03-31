@@ -52,7 +52,8 @@ function Search(props) {
     return data;
   }
 
-  async function handleSearch() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     let data = [];
     try {
       data = await getData();
@@ -70,61 +71,63 @@ function Search(props) {
   return (
     <main className={classes.content}>
       <Toolbar />
-      <Grid container justify="center" align="center" alignItems="center">
-        <Grid item xs={3} />
-        <Grid item xs={6}>
-          <Typography variant="h6">
-            <FormattedMessage id="search.title" />
-          </Typography>
-        </Grid>
-        <Grid item xs={3} />
-        <Grid item xs={3} />
-        <Grid
-          item
-          xs={6}
-          container
-          direction="row"
-          alignItems="center"
-          justify="flex-end"
-        >
-          <TextField
-            className={classes.searchField}
-            type="search"
-            id="search"
-            name="search"
-            label={messages[locale]['search.action']}
-            variant="outlined"
-            value={searchText}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            fullWidth
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={3}
-          container
-          direction="row"
-          alignItems="center"
-          justify="flex-start"
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.searchButton}
-            onClick={handleSearch}
+      <form onSubmit={handleSubmit}>
+        <Grid container justify="center" align="center" alignItems="center">
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <Typography variant="h6">
+              <FormattedMessage id="search.title" />
+            </Typography>
+          </Grid>
+          <Grid item xs={3} />
+          <Grid item xs={3} />
+          <Grid
+            item
+            xs={6}
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-end"
           >
-            <FormattedMessage id="search.action" />
-          </Button>
+            <TextField
+              className={classes.searchField}
+              type="search"
+              id="search"
+              name="search"
+              label={messages[locale]['search.action']}
+              variant="outlined"
+              value={searchText}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              fullWidth
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-start"
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.searchButton}
+              type="submit"
+            >
+              <FormattedMessage id="search.action" />
+            </Button>
+          </Grid>
+          <SearchResults error={error} results={results} locale={locale} />
         </Grid>
-        <SearchResults error={error} results={results} locale={locale} />
-      </Grid>
+      </form>
     </main>
   );
 }
