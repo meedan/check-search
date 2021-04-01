@@ -145,6 +145,12 @@ function Filter(props) {
   );
 }
 
+Filter.defaultProps = {
+  query: undefined,
+  search: false,
+  items: undefined,
+};
+
 Filter.propTypes = {
   query: PropTypes.object,
   localizedTitle: PropTypes.string.isRequired,
