@@ -53,4 +53,5 @@ function App() {
     </IntlProvider>
   );
 }
+
 export default App;

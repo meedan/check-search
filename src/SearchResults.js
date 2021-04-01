@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   makeStyles,
   Typography,
@@ -71,5 +72,11 @@ function SearchResults(props) {
     </>
   );
 }
+
+SearchResults.propTypes = {
+  results: PropTypes.array.isRequired,
+  error: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired,
+};
 
 export default SearchResults;

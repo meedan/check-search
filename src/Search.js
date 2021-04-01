@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
@@ -132,5 +133,9 @@ function Search(props) {
     </main>
   );
 }
+
+Search.propTypes = {
+  locale: PropTypes.string.isRequired,
+};
 
 export default Search;

@@ -55,6 +55,7 @@ function Sidebar() {
             localizedTitle="filters.organizations"
             items={[['All'], ['Meedan users', 'Non-Meedan users']]}
             query={workspacesQuery}
+            search
           />
         </List>
       </div>

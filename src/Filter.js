@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
@@ -110,34 +111,45 @@ function Filter(props) {
           <></>
         )}
         <List component="div" disablePadding>
-          {items
-            .reduce((acc, cur) => acc.concat('|').concat(cur))
-            .map((text, index) =>
-              // Disabling react index-key rule because we are dividing
-              // up a simple array.
-              /* eslint-disable react/no-array-index-key */
-              text === '|' ? (
-                <Divider key={index} className="divider" />
-              ) : (
-                <ListItem button key={index} className="item">
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={false}
-                      tabIndex={-1}
-                      disableRipple
-                    />
-                  </ListItemIcon>
-                  <ListItemText id={1} primary={text} />
-                </ListItem>
-                /* eslint-enable react/no-array-index-key */
-              ),
-            )}
+          {items ? (
+            items
+              .reduce((acc, cur) => acc.concat('|').concat(cur))
+              .map((text, index) =>
+                // Disabling react index-key rule because we are dividing
+                // up a simple array.
+                /* eslint-disable react/no-array-index-key */
+                text === '|' ? (
+                  <Divider key={index} className="divider" />
+                ) : (
+                  <ListItem button key={index} className="item">
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={false}
+                        tabIndex={-1}
+                        disableRipple
+                      />
+                    </ListItemIcon>
+                    <ListItemText id={1} primary={text} />
+                  </ListItem>
+                  /* eslint-enable react/no-array-index-key */
+                ),
+              )
+          ) : (
+            <></>
+          )}
           {query ? <QueryItems query={query} /> : <></>}
         </List>
       </Collapse>
     </div>
   );
 }
+
+Filter.propTypes = {
+  query: PropTypes.object,
+  localizedTitle: PropTypes.string.isRequired,
+  search: PropTypes.bool,
+  items: PropTypes.array,
+};
 
 export default Filter;
