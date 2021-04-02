@@ -17,4 +17,13 @@ export default {
     'filters.organizations': 'Organizaciones',
     'filters.type': 'Tipo de contenido',
   },
+  'ar': {
+    'homepage.title': 'Similarity Search Prototype',
+    'sidebar.filters': 'المرشحات',
+    'search.title': 'Report Database',
+    'search.action': 'بحث',
+    'search.genericError': 'Something went wrong with your search.',
+    'filters.organizations': 'Organizations',
+    'filters.type': 'Content Type',
+  }
 };
