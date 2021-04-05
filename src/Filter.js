@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 function Filter(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const { query, localizedTitle, search, items } = props;
+  const { query, id, search, items } = props;
 
   const handleClick = () => {
     setOpen(!open);
@@ -89,7 +89,7 @@ function Filter(props) {
     <div>
       <ListItem button onClick={handleClick}>
         <ListItemText>
-          <FormattedMessage id={localizedTitle} />
+          <FormattedMessage id={id} />
         </ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -153,7 +153,6 @@ Filter.defaultProps = {
 
 Filter.propTypes = {
   query: PropTypes.object,
-  localizedTitle: PropTypes.string.isRequired,
   search: PropTypes.bool,
   items: PropTypes.array,
 };

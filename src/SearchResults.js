@@ -7,7 +7,7 @@ import {
   CardContent,
   Grid,
 } from '@material-ui/core';
-import messages from '../localization/messages';
+import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -46,10 +46,14 @@ function SearchError(props) {
 
 function SearchResults(props) {
   const classes = useStyles();
-  const { results, error, locale } = props;
+  const intl = useIntl();
+  const { results, error } = props;
   if (!Array.isArray(results) && !error.hasError) {
     error.hasError = true;
-    error.message = messages[locale]['search.genericError'];
+    error.message = intl.formatMessage({
+      id: 'search.genericError',
+      defaultMessage: 'Something went wrong with your search.',
+    });
   }
   return (
     <>
@@ -76,7 +80,6 @@ function SearchResults(props) {
 SearchResults.propTypes = {
   results: PropTypes.array.isRequired,
   error: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
 };
 
 export default SearchResults;

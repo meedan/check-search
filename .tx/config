@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[check-2.similarity-search]
+file_filter = localization/<lang>.json
+source_file = localization/transifex/source.json
+source_lang = en
+type = STRUCTURED_JSON

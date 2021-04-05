@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   makeStyles,
   Button,
@@ -12,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useClient } from 'jsonapi-react';
-import messages from '../localization/messages';
 import SearchResults from './SearchResults';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search(props) {
+function Search() {
   const classes = useStyles();
-  const { locale } = props;
+  const intl = useIntl();
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState({ hasError: false, message: '' });
@@ -77,7 +75,10 @@ function Search(props) {
           <Grid item xs={3} />
           <Grid item xs={6}>
             <Typography variant="h6">
-              <FormattedMessage id="search.title" />
+              <FormattedMessage
+                id="search.title"
+                defaultMessage="Report Database"
+              />
             </Typography>
           </Grid>
           <Grid item xs={3} />
@@ -95,7 +96,10 @@ function Search(props) {
               type="search"
               id="search"
               name="search"
-              label={messages[locale]['search.action']}
+              label={intl.formatMessage({
+                id: 'search.action',
+                defaultMessage: 'Search',
+              })}
               variant="outlined"
               value={searchText}
               InputProps={{
@@ -124,18 +128,14 @@ function Search(props) {
               className={classes.searchButton}
               type="submit"
             >
-              <FormattedMessage id="search.action" />
+              <FormattedMessage id="search.action" defaultMessage="Search" />
             </Button>
           </Grid>
-          <SearchResults error={error} results={results} locale={locale} />
+          <SearchResults error={error} results={results} />
         </Grid>
       </form>
     </main>
   );
 }
-
-Search.propTypes = {
-  locale: PropTypes.string.isRequired,
-};
 
 export default Search;

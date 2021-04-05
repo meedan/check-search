@@ -44,15 +44,17 @@ function Sidebar() {
         <List>
           <ListItem>
             <Typography variant="h6" noWrap>
-              <FormattedMessage id="sidebar.filters" />
+              <FormattedMessage id="sidebar.filters" defaultMessage="Filters" />
             </Typography>
           </ListItem>
           <Filter
-            localizedTitle="filters.type"
+            id="filters.type"
+            defaultMessage="Content Type"
             items={[['All'], ['Report published', 'Query submissions']]}
           />
           <Filter
-            localizedTitle="filters.organizations"
+            id="filters.organizations"
+            defaultMessage="Organizations"
             items={[['All'], ['Meedan users', 'Non-Meedan users']]}
             query={workspacesQuery}
             search

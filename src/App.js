@@ -50,12 +50,15 @@ function App() {
             <AppBar position="fixed" className={classes.appBar}>
               <Toolbar>
                 <Typography variant="h6" noWrap>
-                  <FormattedMessage id="homepage.title" />
+                  <FormattedMessage
+                    id="homepage.title"
+                    defaultMessage="Similarity Search Prototype"
+                  />
                 </Typography>
               </Toolbar>
             </AppBar>
             <Sidebar />
-            <Search locale={locale} />
+            <Search />
           </div>
         </ThemeProvider>
       </StylesProvider>
