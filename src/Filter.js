@@ -108,7 +108,7 @@ function Filter(props) {
             }}
           />
         ) : (
-          <></>
+          null
         )}
         <List component="div" disablePadding>
           {items ? (
@@ -136,9 +136,9 @@ function Filter(props) {
                 ),
               )
           ) : (
-            <></>
+            null
           )}
-          {query ? <QueryItems query={query} /> : <></>}
+          {query ? <QueryItems query={query} /> : null}
         </List>
       </Collapse>
     </div>
