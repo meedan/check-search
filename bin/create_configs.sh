@@ -9,7 +9,7 @@ if [[ -z ${DEPLOY_ENV+x} || -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; 
   exit 1
 fi
 
-SSM_PREFIX="/${DEPLOY_ENV}/check-web"
+SSM_PREFIX="/${DEPLOY_ENV}/check-search"
 WORKTMP=$(mktemp)
 
 # Create user config.js from SSM parameter value:
