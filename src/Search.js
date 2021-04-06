@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
@@ -8,12 +9,11 @@ import {
   TextField,
   Grid,
   InputAdornment,
-  Card,
-  CardContent,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useClient } from 'jsonapi-react';
 import messages from '../localization/messages';
+import SearchResults from './SearchResults';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   results: {
     margin: theme.spacing(2),
   },
+  error: {
+    color: 'red',
+  },
 }));
 
 function Search(props) {
@@ -33,11 +36,12 @@ function Search(props) {
   const { locale } = props;
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
+  const [error, setError] = useState({ hasError: false, message: '' });
   const client = useClient();
 
   async function getData() {
     const { data } = await client.fetch([
-      'items',
+      'reports',
       {
         filter: {
           similar_to_text: searchText,
@@ -49,67 +53,89 @@ function Search(props) {
     return data;
   }
 
-  async function handleSearch() {
-    setResults(await getData());
-  }
-
-  function SearchResults() {
-    return (
-      <>
-        {results.map((item) => (
-          <Grid item xs={12} key={item.id} className={classes.results}>
-            <Card variant="outlined">
-              <CardContent>
-                <Typography className={classes.title} variant="h6">
-                  Report Title
-                </Typography>
-                <Typography>{item.title}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </>
-    );
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let data = [];
+    try {
+      data = await getData();
+    } catch (err) {
+      setError({ hasError: true, message: err.toString() });
+    } finally {
+      if (data) {
+        setResults(data);
+      } else {
+        setError({ hasError: true, message: 'search API returned undefined' });
+      }
+    }
   }
 
   return (
     <main className={classes.content}>
       <Toolbar />
-      <Grid container justify="center" align="center" alignItems="center">
-        <Grid item xs={12}>
-          <Typography variant="h6">
-            <FormattedMessage id="search.title" />
-          </Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <TextField
-            type="search"
-            id="search"
-            label={messages[locale]['search.action']}
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <Button
-            align="left"
-            variant="contained"
-            color="primary"
-            className={classes.searchButton}
-            onClick={handleSearch}
+      <form onSubmit={handleSubmit}>
+        <Grid container justify="center" align="center" alignItems="center">
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <Typography variant="h6">
+              <FormattedMessage id="search.title" />
+            </Typography>
+          </Grid>
+          <Grid item xs={3} />
+          <Grid item xs={3} />
+          <Grid
+            item
+            xs={6}
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-end"
           >
-            <FormattedMessage id="search.action" />
-          </Button>
+            <TextField
+              className={classes.searchField}
+              type="search"
+              id="search"
+              name="search"
+              label={messages[locale]['search.action']}
+              variant="outlined"
+              value={searchText}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              fullWidth
+              autoFocus
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            container
+            direction="row"
+            alignItems="center"
+            justify="flex-start"
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.searchButton}
+              type="submit"
+            >
+              <FormattedMessage id="search.action" />
+            </Button>
+          </Grid>
+          <SearchResults error={error} results={results} locale={locale} />
         </Grid>
-        <SearchResults />
-      </Grid>
+      </form>
     </main>
   );
 }
+
+Search.propTypes = {
+  locale: PropTypes.string.isRequired,
+};
 
 export default Search;

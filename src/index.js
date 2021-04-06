@@ -5,20 +5,23 @@ import 'regenerator-runtime/runtime';
 import { ApiClient, ApiProvider } from 'jsonapi-react';
 import './index.css';
 import App from './App';
+import config from '../config';
+
+const { restBaseUrl, apiToken } = config;
 
 const client = new ApiClient({
-  url: 'http://cormorant:3000/api/v2/',
+  url: `${restBaseUrl}`,
   schema: {
     workspaces: {
       type: 'workspaces',
     },
-    items: {
-      type: 'items',
+    reports: {
+      type: 'reports',
     },
   },
   headers: {
     Accept: 'application/vnd.api+json',
-    'X-Check-Token': 'dev',
+    'X-Check-Token': apiToken,
   },
 });
 
