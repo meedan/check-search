@@ -53,6 +53,7 @@ function SearchResults(props) {
     error.message = intl.formatMessage({
       id: 'search.genericError',
       defaultMessage: 'Something went wrong with your search.',
+      description: `This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.`,
     });
   }
   return (

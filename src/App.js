@@ -119,6 +119,7 @@ function App() {
                     <FormattedMessage
                       id="homepage.title"
                       defaultMessage="Similarity Search Prototype"
+                      description="This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another."
                     />
                   </Typography>
                 </Toolbar>

@@ -44,7 +44,11 @@ function Sidebar() {
         <List>
           <ListItem>
             <Typography variant="h6" noWrap>
-              <FormattedMessage id="sidebar.filters" defaultMessage="Filters" />
+              <FormattedMessage
+                id="sidebar.filters"
+                defaultMessage="Filters"
+                description="A header field for a list of different filters. A plural noun, not an imperative verb."
+              />
             </Typography>
           </ListItem>
           <Filter
