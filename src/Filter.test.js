@@ -1,5 +1,6 @@
 import React from 'react';
 import Filter from './Filter';
+import { FormattedMessage } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
 describe('<Filter />', () => {
@@ -11,7 +12,10 @@ describe('<Filter />', () => {
 
   it('renders the basic filter', () => {
     const wrapper = mountWithIntl(
-      <Filter id="test.message" defaultMessage="Test" items={items} />,
+      <Filter
+        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        items={items}
+      />,
     );
     expect(wrapper.props().items).toEqual(items);
     // Check for hard-coded items
@@ -45,7 +49,11 @@ describe('<Filter />', () => {
       data,
     };
     const wrapper = mountWithIntl(
-      <Filter id="test.message" defaultMessage="Test" items={items} query={query} />,
+      <Filter
+        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        items={items}
+        query={query}
+      />,
     );
     expect(wrapper.props().items).toEqual(items);
     // Check for hard-coded items
@@ -64,7 +72,11 @@ describe('<Filter />', () => {
       data: undefined,
     };
     const wrapper = mountWithIntl(
-      <Filter id="test.message" defaultMessage="Test" items={items} query={query} />,
+      <Filter
+        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        items={items}
+        query={query}
+      />,
     );
     // Check for hard-coded items
     expect(wrapper.find('.item').first().text()).toEqual('Item 1A');
@@ -79,7 +91,11 @@ describe('<Filter />', () => {
       error: { status: 500, title: 'something went wrong' },
     };
     const wrapper = mountWithIntl(
-      <Filter id="test.message" defaultMessage="Test" items={items} query={query} />,
+      <Filter
+        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        items={items}
+        query={query}
+      />,
     );
     // Error message was found and rendered
     expect(
