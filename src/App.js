@@ -39,7 +39,7 @@ const messagesCache = {};
 // detect locale from browser
 let locale =
   navigator.languages || navigator.language || navigator.userLanguage || 'en';
-if (locale.constructor === Array) {
+if (Array.isArray(locale)) {
   [locale] = locale;
 }
 locale = locale.replace(/[-_].*$/, '');
@@ -50,9 +50,34 @@ if (locales.indexOf(locale) === -1) {
 const isRtl = rtlDetect.isRtlLang(locale);
 const direction = isRtl ? 'rtl' : 'ltr';
 
+async function loadMessages() {
+  // Webpack will intrepret the following import as dynamic loading and
+  // split the locales into chunks
+  const messages = await import(`../localization/${locale}.json`);
+  // Transform message from transifex structured JSON to react-intl
+  /* eslint-disable no-param-reassign */
+  const messagesTransformed = Object.keys(messages.default).reduce(
+    (obj, key) => {
+      obj[key] = messages[key].string;
+      return obj;
+    },
+    {},
+  );
+  /* eslint-enable no-param-reassign */
+  messagesCache[locale] = messagesTransformed;
+  return messages;
+}
+
+function getMessages() {
+  if (messagesCache[locale]) {
+    return messagesCache[locale];
+  }
+  throw loadMessages(locale);
+}
+
 // based on https://stackoverflow.com/a/58617341/4869657
 function AsyncIntlProvider({ children }) {
-  const messages = getMessages(locale);
+  const messages = getMessages();
 
   return (
     <div dir={direction}>
@@ -61,26 +86,6 @@ function AsyncIntlProvider({ children }) {
       </IntlProvider>
     </div>
   );
-}
-
-function getMessages(locale) {
-  if (messagesCache[locale]) {
-    return messagesCache[locale];
-  }
-  throw loadMessages(locale);
-}
-
-async function loadMessages(locale) {
-  // Webpack will intrepret the following import as dynamic loading and
-  // split the locales into chunks
-  const messages = await import(`../localization/${locale}.json`);
-  // Transform message from transifex structured JSON to react-intl
-  const messagesTransformed = {};
-  for (const key of Object.keys(messages.default)) {
-    messagesTransformed[key] = messages[key].string;
-  }
-  messagesCache[locale] = messagesTransformed;
-  return messages;
 }
 
 function App() {
