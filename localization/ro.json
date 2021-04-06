@@ -1,26 +1,26 @@
 {
   "filters.organizations": {
-    "string": "Organizations"
+    "string": "Organizații"
   },
   "filters.type": {
-    "string": "Content Type"
+    "string": "Tip de conținut"
   },
   "homepage.title": {
-    "string": "Similarity Search Prototype"
+    "string": "Prototip căutare similarități"
   },
   "search.action": {
-    "string": "Search"
+    "string": "Căutare"
   },
   "search.genericError": {
-    "string": "Something went wrong with your search."
+    "string": "Ceva nu a mers la căutare."
   },
   "search.title": {
-    "string": "Report Database"
+    "string": "Bază de date cu rapoarte"
   },
   "sidebar.filters": {
-    "string": "Filters"
+    "string": "Filtre"
   },
   "test.message": {
-    "string": "Test"
+    "string": "Testare"
   }
 }
