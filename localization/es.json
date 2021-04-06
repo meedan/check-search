@@ -1,0 +1,26 @@
+{
+  "filters.organizations": {
+    "string": "Organizaciones"
+  },
+  "filters.type": {
+    "string": "Tipo de contenido"
+  },
+  "homepage.title": {
+    "string": "Similarity search prototype"
+  },
+  "search.action": {
+    "string": "Buscar "
+  },
+  "search.genericError": {
+    "string": "Algo salió mal con su búsqueda."
+  },
+  "search.title": {
+    "string": "Informes"
+  },
+  "sidebar.filters": {
+    "string": "Filtros"
+  },
+  "test.message": {
+    "string": "Test"
+  }
+}

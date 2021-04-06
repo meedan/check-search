@@ -44,15 +44,29 @@ function Sidebar() {
         <List>
           <ListItem>
             <Typography variant="h6" noWrap>
-              <FormattedMessage id="sidebar.filters" />
+              <FormattedMessage
+                id="sidebar.filters"
+                defaultMessage="Filters"
+                description="A header field for a list of different filters. A plural noun, not an imperative verb."
+              />
             </Typography>
           </ListItem>
           <Filter
-            localizedTitle="filters.type"
+            header={
+              <FormattedMessage
+                id="filters.type"
+                defaultMessage="Content Type"
+              />
+            }
             items={[['All'], ['Report published', 'Query submissions']]}
           />
           <Filter
-            localizedTitle="filters.organizations"
+            header={
+              <FormattedMessage
+                id="filters.organizations"
+                defaultMessage="Organizations"
+              />
+            }
             items={[['All'], ['Meedan users', 'Non-Meedan users']]}
             query={workspacesQuery}
             search

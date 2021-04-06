@@ -1,0 +1,26 @@
+{
+  "filters.organizations": {
+    "string": "Organizații"
+  },
+  "filters.type": {
+    "string": "Tip de conținut"
+  },
+  "homepage.title": {
+    "string": "Prototip căutare similarități"
+  },
+  "search.action": {
+    "string": "Căutare"
+  },
+  "search.genericError": {
+    "string": "Ceva nu a mers la căutare."
+  },
+  "search.title": {
+    "string": "Bază de date cu rapoarte"
+  },
+  "sidebar.filters": {
+    "string": "Filtre"
+  },
+  "test.message": {
+    "string": "Testare"
+  }
+}

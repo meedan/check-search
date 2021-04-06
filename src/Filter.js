@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
   Divider,
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 function Filter(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const { query, localizedTitle, search, items } = props;
+  const { query, search, items, header } = props;
 
   const handleClick = () => {
     setOpen(!open);
@@ -88,9 +87,7 @@ function Filter(props) {
   return (
     <div>
       <ListItem button onClick={handleClick}>
-        <ListItemText>
-          <FormattedMessage id={localizedTitle} />
-        </ListItemText>
+        <ListItemText>{header}</ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -107,12 +104,10 @@ function Filter(props) {
               ),
             }}
           />
-        ) : (
-          <></>
-        )}
+        ) : null}
         <List component="div" disablePadding>
-          {items ? (
-            items
+          {items
+            ? items
               .reduce((acc, cur) => acc.concat('|').concat(cur))
               .map((text, index) =>
                 // Disabling react index-key rule because we are dividing
@@ -135,10 +130,8 @@ function Filter(props) {
                   /* eslint-enable react/no-array-index-key */
                 ),
               )
-          ) : (
-            <></>
-          )}
-          {query ? <QueryItems query={query} /> : <></>}
+            : null}
+          {query ? <QueryItems query={query} /> : null}
         </List>
       </Collapse>
     </div>
@@ -153,7 +146,6 @@ Filter.defaultProps = {
 
 Filter.propTypes = {
   query: PropTypes.object,
-  localizedTitle: PropTypes.string.isRequired,
   search: PropTypes.bool,
   items: PropTypes.array,
 };
