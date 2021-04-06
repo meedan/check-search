@@ -16,7 +16,7 @@
     "test:lint": "eslint src",
     "serve": "webpack",
     "build": "webpack",
-    "transifex:extract": "formatjs extract src/*.js --additional-component-names Filter --format transifex --out-file localization/transifex/source.json",
+    "transifex:extract": "formatjs extract src/*.js --format transifex --out-file localization/transifex/source.json",
     "transifex:upload": "tx push -s",
     "transifex:download": "tx pull -a -f"
   },

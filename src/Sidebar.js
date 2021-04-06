@@ -52,13 +52,21 @@ function Sidebar() {
             </Typography>
           </ListItem>
           <Filter
-            id="filters.type"
-            defaultMessage="Content Type"
+            header={
+              <FormattedMessage
+                id="filters.type"
+                defaultMessage="Content Type"
+              />
+            }
             items={[['All'], ['Report published', 'Query submissions']]}
           />
           <Filter
-            id="filters.organizations"
-            defaultMessage="Organizations"
+            header={
+              <FormattedMessage
+                id="filters.organizations"
+                defaultMessage="Organizations"
+              />
+            }
             items={[['All'], ['Meedan users', 'Non-Meedan users']]}
             query={workspacesQuery}
             search
