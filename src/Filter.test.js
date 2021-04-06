@@ -1,6 +1,6 @@
 import React from 'react';
-import Filter from './Filter';
 import { FormattedMessage } from 'react-intl';
+import Filter from './Filter';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
 describe('<Filter />', () => {
