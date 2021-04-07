@@ -1,8 +1,7 @@
-const config = {
+window.config = {
   appName: 'check',
   selfHost: 'localhost',
   selfHostPort: '8001',
   restBaseUrl: 'http://localhost:3000/api/v2',
   apiToken: 'dev',
 };
-module.exports = config;

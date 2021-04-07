@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const config = require('./config');
+const CopyPlugin = require('copy-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV || 'production';
 const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX
   ? `.${process.env.BUNDLE_PREFIX}`
@@ -9,12 +9,13 @@ const nodeModulesPrefix = path.resolve(__dirname, 'node_modules') + '/';
 
 module.exports = {
   entry: './src/index.js',
+  target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index_bundle.js',
   },
   devServer: {
-    port: config.selfHostPort,
+    port: 8001,
     host: '0.0.0.0',
     disableHostCheck: true,
   },
@@ -30,10 +31,9 @@ module.exports = {
       },
     ],
   },
-  mode: 'development',
+  mode: 'production',
   optimization: {
     splitChunks: {
-      minSize: 99999999,
       name: false,
       cacheGroups: {
         vendor: {
@@ -51,9 +51,15 @@ module.exports = {
   resolve: {
     symlinks: true,
   },
+  externals: {
+    config: 'config',
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+    }),
+    new CopyPlugin({
+      patterns: [{ from: './config.js', to: 'config.js' }],
     }),
   ],
 };

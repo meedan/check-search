@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import 'core-js';
 import 'regenerator-runtime/runtime';
 import { ApiClient, ApiProvider } from 'jsonapi-react';
+import config from 'config';
 import './index.css';
 import App from './App';
-import config from '../config';
 
 const { restBaseUrl, apiToken } = config;
 
