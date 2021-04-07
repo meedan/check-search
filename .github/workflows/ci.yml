@@ -9,13 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: 8398a7/action-slack@v3
-      with:
-        status: ${{ job.status}}
-        fields: repo,message,commit,author,ref,took
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      if: always()
     - name: Run ESLint
       uses: actions/setup-node@v1
       with:
@@ -25,3 +18,18 @@ jobs:
     - run: npm run test:lint
     - run: npm test
 
+    - uses: 8398a7/action-slack@v3
+      with:
+        job_name: Lint and Test
+        status: custom
+        fields: all
+        custom_payload: |
+          {
+            attachments: [{
+              color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+              text: `${process.env.AS_WORKFLOW}\n${process.env.AS_MESSAGE} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO} @ ${process.env.AS_REF}\nby ${process.env.AS_AUTHOR}\n${{ job.status }} in ${process.env.AS_TOOK}`,
+            }]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
