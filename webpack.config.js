@@ -1,6 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config');
+const NODE_ENV = process.env.NODE_ENV || 'production';
+const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX
+  ? `.${process.env.BUNDLE_PREFIX}`
+  : '';
+const nodeModulesPrefix = path.resolve(__dirname, 'node_modules') + '/';
 
 module.exports = {
   entry: './src/index.js',
@@ -26,6 +31,23 @@ module.exports = {
     ],
   },
   mode: 'development',
+  optimization: {
+    splitChunks: {
+      minSize: 99999999,
+      name: false,
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          filename: `vendor.bundle${BUNDLE_PREFIX}.js`,
+          chunks: 'all',
+          enforce: true,
+          test({ resource }) {
+            return resource && resource.startsWith(nodeModulesPrefix);
+          },
+        },
+      },
+    },
+  },
   resolve: {
     symlinks: true,
   },
