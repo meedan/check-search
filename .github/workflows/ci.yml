@@ -21,7 +21,6 @@ jobs:
     - name: Notify Slack
       id: slack-notify
       uses: 8398a7/action-slack@v3
-      if: ${{ failure() }}
       with:
         status: custom
         fields: workflow,job,commit,repo,ref,author,took,message
