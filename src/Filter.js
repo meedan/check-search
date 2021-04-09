@@ -105,7 +105,7 @@ function Filter(props) {
             }}
           />
         ) : null}
-        <List component="div" disablePadding>
+        <List component="div" disablePadding dense>
           {items
             ? items
               .reduce((acc, cur) => acc.concat('|').concat(cur))

@@ -90,6 +90,7 @@ function AsyncIntlProvider({ children }) {
 
 function App() {
   const classes = useStyles();
+  const [similarity, setSimilarity] = React.useState(90);
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -124,8 +125,8 @@ function App() {
                   </Typography>
                 </Toolbar>
               </AppBar>
-              <Sidebar />
-              <Search />
+              <Sidebar similarity={similarity} setSimilarity={setSimilarity} />
+              <Search similarity={similarity} />
             </div>
           </ThemeProvider>
         </StylesProvider>

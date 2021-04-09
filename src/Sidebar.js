@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
@@ -7,11 +8,15 @@ import {
   Typography,
   List,
   ListItem,
+  Slider,
+  TextField,
+  Grid,
+  Divider,
 } from '@material-ui/core';
 import { useQuery } from 'jsonapi-react';
 import Filter from './Filter';
 
-const drawerWidth = 296;
+const drawerWidth = 297;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -25,10 +30,21 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     padding: theme.spacing(3),
   },
+  slider: {
+    padding: theme.spacing(2),
+  },
 }));
 
-function Sidebar() {
+function Sidebar(props) {
   const classes = useStyles();
+  const { similarity, setSimilarity } = props;
+  function handleSimilarityTextFieldChange(e) {
+    setSimilarity(e.target.value);
+  }
+
+  function handleSimilaritySliderChange(e, newValue) {
+    setSimilarity(newValue);
+  }
 
   const workspacesQuery = useQuery('workspaces');
   return (
@@ -43,7 +59,7 @@ function Sidebar() {
       <div className={classes.drawerContainer}>
         <List>
           <ListItem>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h5" noWrap>
               <FormattedMessage
                 id="sidebar.filters"
                 defaultMessage="Filters"
@@ -51,30 +67,80 @@ function Sidebar() {
               />
             </Typography>
           </ListItem>
+          <Divider />
+          <ListItem>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant="h6" noWrap>
+                  <FormattedMessage
+                    id="sidebar.similarity"
+                    defaultMessage="Similarity"
+                    description="This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query."
+                  />
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  id="similarity-text"
+                  type="number"
+                  variant="outlined"
+                  margin="dense"
+                  value={similarity}
+                  onChange={handleSimilarityTextFieldChange}
+                />
+              </Grid>
+              <Grid item xs={8} className={classes.slider}>
+                <Slider
+                  defaultValue={80}
+                  step={20}
+                  marks
+                  min={0}
+                  max={100}
+                  value={similarity}
+                  onChange={handleSimilaritySliderChange}
+                />
+              </Grid>
+            </Grid>
+          </ListItem>
+          <Divider />
           <Filter
             header={
-              <FormattedMessage
-                id="filters.type"
-                defaultMessage="Content Type"
-              />
+              <Typography variant="h6" noWrap>
+                <FormattedMessage
+                  id="filters.organizations"
+                  defaultMessage="Publishers"
+                />
+              </Typography>
             }
-            items={[['All'], ['Report published', 'Query submissions']]}
+            items={[['All'], ['Check workspaces', 'Non-Check workspaces']]}
+            query={workspacesQuery}
+            search
           />
           <Filter
             header={
-              <FormattedMessage
-                id="filters.organizations"
-                defaultMessage="Organizations"
-              />
+              <Typography variant="h6" noWrap>
+                <FormattedMessage
+                  id="filters.type"
+                  defaultMessage="Content Type"
+                />
+              </Typography>
             }
-            items={[['All'], ['Meedan users', 'Non-Meedan users']]}
-            query={workspacesQuery}
-            search
+            items={[['All'], ['Report published', 'Query submissions']]}
           />
         </List>
       </div>
     </Drawer>
   );
 }
+
+Sidebar.defaultProps = {
+  similarity: 90,
+  setSimilarity: undefined,
+};
+
+Sidebar.propTypes = {
+  similarity: PropTypes.number,
+  setSimilarity: PropTypes.func,
+};
 
 export default Sidebar;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
   makeStyles,
@@ -29,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search() {
+function Search(props) {
   const classes = useStyles();
+  const { similarity } = props;
   const intl = useIntl();
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
@@ -43,11 +45,10 @@ function Search() {
       {
         filter: {
           similar_to_text: searchText,
-          similarity_threshold: 0.1,
+          similarity_threshold: similarity / 100,
         },
       },
     ]);
-
     return data;
   }
 
@@ -137,5 +138,13 @@ function Search() {
     </main>
   );
 }
+
+Search.defaultProps = {
+  similarity: 90,
+};
+
+Search.propTypes = {
+  similarity: PropTypes.number,
+};
 
 export default Search;
