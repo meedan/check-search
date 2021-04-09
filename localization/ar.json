@@ -1,24 +1,31 @@
 {
   "filters.organizations": {
-    "string": "Organizations"
+    "string": "Publishers"
   },
   "filters.type": {
     "string": "Content Type"
   },
   "homepage.title": {
+    "developer_comment": "This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another.",
     "string": "Similarity Search Prototype"
   },
   "search.action": {
     "string": "بحث"
   },
   "search.genericError": {
+    "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
     "string": "Something went wrong with your search."
   },
   "search.title": {
     "string": "Report Database"
   },
   "sidebar.filters": {
+    "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
     "string": "فلاتر"
+  },
+  "sidebar.similarity": {
+    "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
+    "string": "Similarity"
   },
   "test.message": {
     "string": "Test"

@@ -1,6 +1,6 @@
 {
   "filters.organizations": {
-    "string": "Organizations"
+    "string": "Publishers"
   },
   "filters.type": {
     "string": "Content Type"
@@ -22,6 +22,10 @@
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
     "string": "Filters"
+  },
+  "sidebar.similarity": {
+    "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
+    "string": "Similarity"
   },
   "test.message": {
     "string": "Test"
