@@ -2,6 +2,9 @@ FROM node:15.11-slim
 
 WORKDIR /app
 
+ARG INST_ARGS
+ENV INSTALL_ARGS=$INST_ARGS
+
 RUN groupadd -r search
 RUN useradd -ms /bin/bash -g search search
 RUN chown search:search .
@@ -15,7 +18,7 @@ RUN curl --silent --show-error --fail "https://awscli.amazonaws.com/awscli-exe-l
       rm -rf awscliv2.zip
 
 COPY --chown=search:search package.json package-lock.json ./
-RUN npm install
+RUN npm install $INSTALL_ARGS
 
 COPY --chown=search:search . .
 
