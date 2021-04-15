@@ -18,10 +18,11 @@ build_qa:
     - pip install docutils==0.14
     - pip install awscli==1.16.201
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-    - docker build  -f Dockerfile --build-arg INST_ARGS=--production -t "$ECR_API_BASE_URL/qa/check/search:$CI_COMMIT_SHA"  .
+    - docker build  -f Dockerfile --build-arg INST_ARGS=--production --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -t "$ECR_API_BASE_URL/qa/check/search:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/search:$CI_COMMIT_SHA"
   only:
     - develop
+    - deploy-release-mode
 
 deploy_qa:
   image: python:3-alpine
@@ -42,6 +43,7 @@ deploy_qa:
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/search:$CI_COMMIT_SHA"
   only:
     - develop
+    - deploy-release-mode
 
 build_live:
   image: docker:latest
@@ -59,7 +61,7 @@ build_live:
     - pip install docutils==0.14
     - pip install awscli==1.16.201
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-    - docker build  -f Dockerfile --build-arg INST_ARGS=--production -t "$ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"  .
+    - docker build  -f Dockerfile --build-arg INST_ARGS=--production --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -t "$ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"
   only:
     - master

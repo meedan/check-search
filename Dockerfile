@@ -5,6 +5,9 @@ WORKDIR /app
 ARG INST_ARGS
 ENV INSTALL_ARGS=$INST_ARGS
 
+ARG TIMESTAMP
+ENV BUNDLE_PREFIX=$TIMESTAMP
+
 RUN groupadd -r search
 RUN useradd -ms /bin/bash -g search search
 RUN chown search:search .
