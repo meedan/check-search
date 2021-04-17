@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Sidebar(props) {
   const classes = useStyles();
-  const { similarity, setSimilarity } = props;
+  const { similarity, setSimilarity, workspaces, setWorkspaces } = props;
   function handleSimilarityTextFieldChange(e) {
     setSimilarity(e.target.value);
   }
@@ -114,7 +114,8 @@ function Sidebar(props) {
             }
             items={[['All'], ['Check workspaces', 'Non-Check workspaces']]}
             query={workspacesQuery}
-            search
+            setValue={setWorkspaces}
+            value={workspaces}
           />
           <Filter
             header={

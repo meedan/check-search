@@ -17,7 +17,7 @@
         "require-path-exists",
     ],
     "rules": {
-        "indent": [2, 2],
+        "indent": [2, 2, { "MemberExpression": "off" }],
 
         // Relax, React!
         "react/jsx-filename-extension": "off",
@@ -25,6 +25,7 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
+        "react/jsx-props-no-spreading": "off",
 
         // TODO Fix a11y issues
         "jsx-a11y/no-static-element-interactions": "off",

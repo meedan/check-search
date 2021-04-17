@@ -5,7 +5,7 @@ import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 describe('<SearchResults />', () => {
   it('renders the basic search', () => {
     const wrapper = mountWithIntl(
-      <SearchResults error={{}} results={[]} locale="en" />,
+      <SearchResults error={{}} results={[]} locale="en" pageNumber={0} rowsPerPage={2} />,
     );
     expect(wrapper.props().error).toEqual({});
   });
@@ -16,7 +16,7 @@ describe('<SearchResults />', () => {
     const errorFunction = console.error;
     console.error = jest.fn();
     const wrapper = mountWithIntl(
-      <SearchResults error={{}} results={results} locale="en" />,
+      <SearchResults error={{}} results={results} locale="en" pageNumber={0} rowsPerPage={2} />,
     );
     expect(
       wrapper.find('.MuiTypography-root.search-error-message').length,
@@ -30,7 +30,7 @@ describe('<SearchResults />', () => {
       message: 'This error message was returned from the API',
     };
     const wrapper = mountWithIntl(
-      <SearchResults error={error} results={[]} locale="en" />,
+      <SearchResults error={error} results={[]} locale="en" pageNumber={0} rowsPerPage={2} />,
     );
     expect(
       wrapper.find('.MuiTypography-root.search-error-message').length,

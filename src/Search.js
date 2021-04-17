@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
@@ -32,11 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity } = props;
-  const intl = useIntl();
-  const [searchText, setSearchText] = useState('');
+  const { similarity, workspaces } = props;
   const [results, setResults] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [confirmedText, setConfirmedText] = useState('');
   const [error, setError] = useState({ hasError: false, message: '' });
+  const [rowsPerPage, setRowsPerPage] = React.useState(2);
   const client = useClient();
 
   async function getData() {
@@ -44,8 +45,15 @@ function Search(props) {
       'reports',
       {
         filter: {
-          similar_to_text: searchText,
+          similar_to_text: confirmedText,
           similarity_threshold: similarity / 100,
+          similarity_organization_ids: workspaces
+            .map((item) => item.id)
+            .toString(),
+        },
+        page: {
+          size: rowsPerPage,
+          number: pageNumber + 1,
         },
       },
     ]);
@@ -53,7 +61,8 @@ function Search(props) {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    if (!confirmedText) return;
     let data = [];
     try {
       data = await getData();
@@ -67,6 +76,11 @@ function Search(props) {
       }
     }
   }
+
+  // make query when page number or rows per page changes
+  useEffect(() => {
+    handleSubmit(null);
+  }, [pageNumber, rowsPerPage]);
 
   return (
     <main className={classes.content}>
@@ -84,58 +98,81 @@ function Search(props) {
           </Grid>
           <Grid item xs={3} />
           <Grid item xs={3} />
-          <Grid
-            item
-            xs={6}
-            container
-            direction="row"
-            alignItems="center"
-            justify="flex-end"
-          >
-            <TextField
-              className={classes.searchField}
-              type="search"
-              id="search"
-              name="search"
-              label={intl.formatMessage({
-                id: 'search.action',
-                defaultMessage: 'Search',
-              })}
-              variant="outlined"
-              value={searchText}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              fullWidth
-              autoFocus
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={3}
-            container
-            direction="row"
-            alignItems="center"
-            justify="flex-start"
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.searchButton}
-              type="submit"
-            >
-              <FormattedMessage id="search.action" defaultMessage="Search" />
-            </Button>
-          </Grid>
-          <SearchResults error={error} results={results} />
+          <SearchInput {...{ setConfirmedText }} />
+          <SearchResults
+            {...{
+              error,
+              results,
+              rowsPerPage,
+              setRowsPerPage,
+              pageNumber,
+              setPageNumber,
+              handleSubmit,
+            }}
+          />
         </Grid>
       </form>
     </main>
+  );
+}
+
+function SearchInput(props) {
+  const classes = useStyles();
+  const { setConfirmedText } = props;
+  const intl = useIntl();
+  const [searchText, setSearchText] = useState('');
+  return (
+    <>
+      <Grid
+        item
+        xs={6}
+        container
+        direction="row"
+        alignItems="center"
+        justify="flex-end"
+      >
+        <TextField
+          className={classes.searchField}
+          type="search"
+          id="search"
+          name="search"
+          label={intl.formatMessage({
+            id: 'search.action',
+            defaultMessage: 'Search',
+          })}
+          variant="outlined"
+          value={searchText}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+          autoFocus
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={3}
+        container
+        direction="row"
+        alignItems="center"
+        justify="flex-start"
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.searchButton}
+          type="submit"
+          onClick={() => setConfirmedText(searchText)}
+        >
+          <FormattedMessage id="search.action" defaultMessage="Search" />
+        </Button>
+      </Grid>
+    </>
   );
 }
 

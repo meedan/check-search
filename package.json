@@ -33,6 +33,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "*",
     "core-js": "^3.9.1",
     "jsonapi-react": "^0.0.24",
     "jss-rtl": "^0.3.0",

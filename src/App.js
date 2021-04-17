@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import {
   makeStyles,
@@ -90,7 +90,8 @@ function AsyncIntlProvider({ children }) {
 
 function App() {
   const classes = useStyles();
-  const [similarity, setSimilarity] = React.useState(90);
+  const [similarity, setSimilarity] = useState(90);
+  const [workspaces, setWorkspaces] = useState([]);
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -125,8 +126,10 @@ function App() {
                   </Typography>
                 </Toolbar>
               </AppBar>
-              <Sidebar similarity={similarity} setSimilarity={setSimilarity} />
-              <Search similarity={similarity} />
+              <Sidebar
+                {...{ similarity, setSimilarity, workspaces, setWorkspaces }}
+              />
+              <Search {...{ similarity, workspaces }} />
             </div>
           </ThemeProvider>
         </StylesProvider>
