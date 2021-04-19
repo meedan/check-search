@@ -33,15 +33,18 @@ const useStyles = makeStyles((theme) => ({
 function Search(props) {
   const classes = useStyles();
   const { similarity, workspaces } = props;
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({
+    data: [],
+    meta: { 'record-count': 0 },
+  });
   const [pageNumber, setPageNumber] = useState(0);
   const [confirmedText, setConfirmedText] = useState('');
   const [error, setError] = useState({ hasError: false, message: '' });
-  const [rowsPerPage, setRowsPerPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const client = useClient();
 
   async function getData() {
-    const { data } = await client.fetch([
+    const data = await client.fetch([
       'reports',
       {
         filter: {

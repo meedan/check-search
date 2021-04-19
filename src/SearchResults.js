@@ -76,7 +76,7 @@ function SearchResults(props) {
     pageNumber,
     setPageNumber,
   } = props;
-  if (!Array.isArray(results)) {
+  if (!(results.meta && results.data)) {
     error.hasError = true;
     error.message = intl.formatMessage({
       id: 'search.genericError',
@@ -161,7 +161,7 @@ function SearchResults(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {results.map((row) => (
+            {results.data.map((row) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 {columns.map((column) => {
                   let result;
@@ -204,7 +204,7 @@ function SearchResults(props) {
       <TablePagination
         rowsPerPageOptions={[2, 10, 50]}
         component="div"
-        count={10}
+        count={results.meta['record-count']}
         rowsPerPage={rowsPerPage}
         page={pageNumber}
         onChangePage={handleChangePage}
@@ -215,7 +215,7 @@ function SearchResults(props) {
 }
 
 SearchResults.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
 };
 
