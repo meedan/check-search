@@ -109,6 +109,7 @@ function Sidebar(props) {
                 <FormattedMessage
                   id="filters.organizations"
                   defaultMessage="Publishers"
+                  description="This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from."
                 />
               </Typography>
             }
@@ -123,6 +124,7 @@ function Sidebar(props) {
                 <FormattedMessage
                   id="filters.type"
                   defaultMessage="Content Type"
+                  description="This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from."
                 />
               </Typography>
             }

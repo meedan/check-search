@@ -96,6 +96,7 @@ function Search(props) {
               <FormattedMessage
                 id="search.title"
                 defaultMessage="Report Database"
+                description="This is a message that appears above the search bar in the application. It is supposed to indicate what group of documents the user is about to search."
               />
             </Typography>
           </Grid>
@@ -142,6 +143,8 @@ function SearchInput(props) {
           label={intl.formatMessage({
             id: 'search.action',
             defaultMessage: 'Search',
+            description:
+              'This is a verb that indicates the user is going to search a database for records based on a query they typed.',
           })}
           variant="outlined"
           value={searchText}
@@ -172,7 +175,7 @@ function SearchInput(props) {
           type="submit"
           onClick={() => setConfirmedText(searchText)}
         >
-          <FormattedMessage id="search.action" defaultMessage="Search" />
+          <FormattedMessage id="search.action" defaultMessage="Search" description="This is a verb that indicates the user is going to search a database for records based on a query they typed." />
         </Button>
       </Grid>
     </>
