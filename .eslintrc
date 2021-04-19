@@ -15,6 +15,7 @@
     },
     "plugins": [
         "require-path-exists",
+        "formatjs",
     ],
     "rules": {
         "indent": [2, 2, { "MemberExpression": "off" }],
@@ -72,6 +73,9 @@
         "implicit-arrow-linebreak": "off",
         "object-curly-newline": "off",
         "operator-linebreak": "off",
+
+        // react-intl / formatjs rules
+        "formatjs/enforce-description": 1,
     },
     "overrides": [
         {
