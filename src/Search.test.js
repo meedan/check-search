@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from './Search';
+import 'regenerator-runtime/runtime';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
 describe('<Search />', () => {
@@ -12,6 +13,6 @@ describe('<Search />', () => {
       .find('input')
       .at(0)
       .simulate('change', { target: { name: 'search', value: 'Search text' } });
-    expect(wrapper.find('input').props().value).toEqual('Search text');
+    expect(wrapper.find('input').at(0).props().value).toEqual('Search text');
   });
 });

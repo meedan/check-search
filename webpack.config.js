@@ -32,7 +32,7 @@ module.exports = {
       },
     ],
   },
-  mode: 'production',
+  mode: NODE_ENV,
   optimization: {
     splitChunks: {
       name: false,
