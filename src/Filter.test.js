@@ -13,7 +13,13 @@ describe('<Filter />', () => {
   it('renders the basic filter', () => {
     const wrapper = mountWithIntl(
       <Filter
-        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        header={
+          <FormattedMessage
+            id="test.message"
+            defaultMessage="Test"
+            description="test"
+          />
+        }
         items={items}
       />,
     );
@@ -33,7 +39,13 @@ describe('<Filter />', () => {
     };
     const wrapper = mountWithIntl(
       <Filter
-        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        header={
+          <FormattedMessage
+            id="test.message"
+            defaultMessage="Test"
+            description="test"
+          />
+        }
         items={items}
         query={query}
       />,
@@ -52,7 +64,13 @@ describe('<Filter />', () => {
     };
     const wrapper = mountWithIntl(
       <Filter
-        header={<FormattedMessage id="test.message" defaultMessage="Test" />}
+        header={
+          <FormattedMessage
+            id="test.message"
+            defaultMessage="Test"
+            description="test"
+          />
+        }
         items={items}
         query={query}
       />,
