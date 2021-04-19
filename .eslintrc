@@ -75,7 +75,7 @@
         "operator-linebreak": "off",
 
         // react-intl / formatjs rules
-        "formatjs/enforce-description": 1,
+        "formatjs/enforce-description": 2,
     },
     "overrides": [
         {
