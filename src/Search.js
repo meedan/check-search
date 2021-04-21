@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity, workspaces } = props;
+  const { similarity, workspaces, mediaTypes } = props;
   const [results, setResults] = useState({
     data: [],
     meta: { 'record-count': 0 },
@@ -53,6 +53,9 @@ function Search(props) {
           similarity_organization_ids: workspaces
             .map((item) => item.id)
             .toString(),
+          media_type: mediaTypes
+            .filter((item) => item.isChecked)
+            .map((item) => item.value),
         },
         page: {
           size: rowsPerPage,
@@ -175,7 +178,11 @@ function SearchInput(props) {
           type="submit"
           onClick={() => setConfirmedText(searchText)}
         >
-          <FormattedMessage id="search.action" defaultMessage="Search" description="This is a verb that indicates the user is going to search a database for records based on a query they typed." />
+          <FormattedMessage
+            id="search.action"
+            defaultMessage="Search"
+            description="This is a verb that indicates the user is going to search a database for records based on a query they typed."
+          />
         </Button>
       </Grid>
     </>
@@ -184,10 +191,14 @@ function SearchInput(props) {
 
 Search.defaultProps = {
   similarity: 90,
+  workspaces: [],
+  mediaTypes: [],
 };
 
 Search.propTypes = {
   similarity: PropTypes.number,
+  workspaces: PropTypes.array,
+  mediaTypes: PropTypes.array,
 };
 
 export default Search;

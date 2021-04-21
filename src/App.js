@@ -92,6 +92,7 @@ function App() {
   const classes = useStyles();
   const [similarity, setSimilarity] = useState(90);
   const [workspaces, setWorkspaces] = useState([]);
+  const [mediaTypes, setMediaTypes] = useState([]);
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -127,9 +128,16 @@ function App() {
                 </Toolbar>
               </AppBar>
               <Sidebar
-                {...{ similarity, setSimilarity, workspaces, setWorkspaces }}
+                {...{
+                  similarity,
+                  setSimilarity,
+                  workspaces,
+                  setWorkspaces,
+                  mediaTypes,
+                  setMediaTypes,
+                }}
               />
-              <Search {...{ similarity, workspaces }} />
+              <Search {...{ similarity, workspaces, mediaTypes }} />
             </div>
           </ThemeProvider>
         </StylesProvider>

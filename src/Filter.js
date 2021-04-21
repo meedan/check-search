@@ -12,10 +12,7 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-import {
-  ExpandLess,
-  ExpandMore,
-} from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import FilterAutocomplete from './FilterAutocomplete';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,11 +30,77 @@ const useStyles = makeStyles((theme) => ({
 function Filter(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const { query, items, header, setValue, value } = props;
+  const [selectAllChecked, setSelectAllChecked] = React.useState(false);
+  const { query, header, setValue, value } = props;
+  let items = [];
 
-  const handleClick = () => {
+  function handleClick() {
     setOpen(!open);
-  };
+  }
+
+  function handleCheck(e) {
+    // find the correct value by value, flip it, set it
+    const newArr = [...value];
+    newArr[value.findIndex((item) => item.value === e.target.name)].isChecked =
+      e.target.checked;
+    setValue(newArr);
+
+    // modify "All" as needed
+    if (e.target.checked) {
+      if (newArr.every((item) => item.isChecked)) {
+        setSelectAllChecked(true);
+      }
+    } else if (newArr.some((item) => !item.isChecked)) {
+      setSelectAllChecked(false);
+    }
+  }
+
+  function handleSelectAll(e) {
+    const isAll = e.target.checked;
+    const newArr = [...value];
+    newArr.forEach((item) => {
+      item.isChecked = isAll;
+    });
+    setValue(newArr);
+    setSelectAllChecked(isAll);
+  }
+
+  // if the filter isn't sourced from an external query, render value list instead
+  if (!query && value) {
+    items.push(
+      <ListItem button key="all" className="item">
+        <ListItemIcon>
+          <Checkbox
+            edge="start"
+            checked={selectAllChecked}
+            name="all"
+            tabIndex={-1}
+            disableRipple
+            onChange={handleSelectAll}
+          />
+        </ListItemIcon>
+        <ListItemText id={1} primary="All" />
+      </ListItem>,
+    );
+    items.push(
+      value.map((item) => (
+        <ListItem button key={item.value} className="item">
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={item.isChecked}
+              name={item.value}
+              tabIndex={-1}
+              disableRipple
+              onChange={handleCheck}
+            />
+          </ListItemIcon>
+          <ListItemText id={1} primary={item.label} />
+        </ListItem>
+      )),
+    );
+    items = items.flat();
+  }
 
   function QueryItems(queryProps) {
     const { data, error, isLoading } = queryProps.query;
@@ -80,31 +143,7 @@ function Filter(props) {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding dense>
-          {items
-            ? items
-                .reduce((acc, cur) => acc.concat('|').concat(cur))
-                .map((text, index) =>
-                  // Disabling react index-key rule because we are dividing
-                  // up a simple array.
-                  /* eslint-disable react/no-array-index-key */
-                  text === '|' ? (
-                    <Divider key={index} className="divider" />
-                  ) : (
-                    <ListItem button key={index} className="item">
-                      <ListItemIcon>
-                        <Checkbox
-                          edge="start"
-                          checked={false}
-                          tabIndex={-1}
-                          disableRipple
-                        />
-                      </ListItemIcon>
-                      <ListItemText id={1} primary={text} />
-                    </ListItem>
-                    /* eslint-enable react/no-array-index-key */
-                  ),
-                )
-            : null}
+          {items}
           {query ? <QueryItems query={query} /> : null}
         </List>
       </Collapse>
@@ -114,12 +153,10 @@ function Filter(props) {
 
 Filter.defaultProps = {
   query: undefined,
-  items: undefined,
 };
 
 Filter.propTypes = {
   query: PropTypes.object,
-  items: PropTypes.array,
 };
 
 export default Filter;

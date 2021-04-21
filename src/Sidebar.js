@@ -35,9 +35,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const mediaTypeOptions = [
+  {
+    label: 'Link',
+    value: 'Link',
+    isChecked: false,
+  },
+  {
+    label: 'Text',
+    value: 'Claim',
+    isChecked: false,
+  },
+  {
+    label: 'Image',
+    value: 'UploadedImage',
+    isChecked: false,
+  },
+];
+
 function Sidebar(props) {
   const classes = useStyles();
-  const { similarity, setSimilarity, workspaces, setWorkspaces } = props;
+  const {
+    similarity,
+    setSimilarity,
+    workspaces,
+    setWorkspaces,
+    setMediaTypes,
+  } = props;
+
   function handleSimilarityTextFieldChange(e) {
     setSimilarity(e.target.value);
   }
@@ -47,6 +72,7 @@ function Sidebar(props) {
   }
 
   const workspacesQuery = useQuery('workspaces');
+
   return (
     <Drawer
       className={classes.drawer}
@@ -113,7 +139,6 @@ function Sidebar(props) {
                 />
               </Typography>
             }
-            items={[['All'], ['Check workspaces', 'Non-Check workspaces']]}
             query={workspacesQuery}
             setValue={setWorkspaces}
             value={workspaces}
@@ -128,7 +153,8 @@ function Sidebar(props) {
                 />
               </Typography>
             }
-            items={[['All'], ['Report published', 'Query submissions']]}
+            value={mediaTypeOptions}
+            setValue={setMediaTypes}
           />
         </List>
       </div>
@@ -139,11 +165,17 @@ function Sidebar(props) {
 Sidebar.defaultProps = {
   similarity: 90,
   setSimilarity: undefined,
+  workspaces: [],
+  setWorkspaces: undefined,
+  setMediaTypes: undefined,
 };
 
 Sidebar.propTypes = {
   similarity: PropTypes.number,
   setSimilarity: PropTypes.func,
+  workspaces: PropTypes.array,
+  setWorkspaces: PropTypes.func,
+  setMediaTypes: PropTypes.func,
 };
 
 export default Sidebar;
