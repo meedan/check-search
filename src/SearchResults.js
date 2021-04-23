@@ -16,7 +16,7 @@ import {
   TableSortLabel,
   Paper,
 } from '@material-ui/core';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '200px',
     maxWidth: '200px',
     float: 'left',
+  },
+  noResults: {
+    margin: theme.spacing(2),
   },
 }));
 
@@ -95,13 +98,23 @@ function SearchResults(props) {
   const columns = [
     {
       id: 'report',
-      label: 'Report',
+      label: intl.formatMessage({
+        id: 'sort.report',
+        defaultMessage: 'Reports & Claims',
+        description:
+          'This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports made and claims filed in Check.',
+      }),
       minWidth: 170,
       align: 'left',
     },
     {
       id: 'published',
-      label: 'Published',
+      label: intl.formatMessage({
+        id: 'sort.published',
+        defaultMessage: 'Published',
+        description:
+          'This is a header for a column in a search results table that contains the date that items were published on.',
+      }),
       minWidth: 50,
       align: 'left',
       format: (value) => {
@@ -112,14 +125,24 @@ function SearchResults(props) {
     },
     {
       id: 'status',
-      label: 'Status',
+      label: intl.formatMessage({
+        id: 'sort.status',
+        defaultMessage: 'Status',
+        description:
+          'This is a header for a column in a search results table that contains a field saying whether a fact-checked claim or report was deemed false or true.',
+      }),
       apiField: 'report-rating',
       minWidth: 100,
       align: 'left',
     },
     {
       id: 'score',
-      label: 'Score',
+      label: intl.formatMessage({
+        id: 'sort.score',
+        defaultMessage: 'Score',
+        description:
+          'This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.',
+      }),
       apiField: 'score',
       minWidth: 100,
       align: 'left',
@@ -127,7 +150,12 @@ function SearchResults(props) {
     },
     {
       id: 'url',
-      label: 'Published article',
+      label: intl.formatMessage({
+        id: 'sort.url',
+        defaultMessage: 'Published article',
+        description:
+          'This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.',
+      }),
       apiField: 'article-link',
       minWidth: 100,
       align: 'left',
@@ -135,7 +163,12 @@ function SearchResults(props) {
     },
     {
       id: 'sent',
-      label: 'Sent',
+      label: intl.formatMessage({
+        id: 'sort.sent',
+        defaultMessage: 'Sent',
+        description:
+          'This is a header for a column in a search results table that contains the number of times this item was sent on social media.',
+      }),
       apiField: 'requests',
       minWidth: 100,
       align: 'left',
@@ -209,46 +242,60 @@ function SearchResults(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stableSort(results.data, getComparator(order, orderBy)).map(
-              (row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    let result;
-                    if (column.id === 'report') {
-                      result = (
-                        <TableCell key={column.id} align={column.align}>
-                          {row['lead-image'] ? (
-                            <img
-                              className={classes.thumbnail}
-                              src={row['lead-image']}
-                              alt={row.title}
-                            />
-                          ) : null}
-                          <Typography variant="h6">{row.title}</Typography>
-                          <Typography variant="body2">
-                            {row.description}
-                          </Typography>
-                        </TableCell>
-                      );
-                    } else {
-                      let value;
-                      if (column.apiField) {
-                        value = row[column.apiField];
+            {results.data.length === 0 ? (
+              <tr>
+                <td>
+                  <Typography className={classes.noResults} variant="h6">
+                    <FormattedMessage
+                      id="search.noResults"
+                      defaultMessage="No results found."
+                      description="A message that appears when a user searches for similar items, but we could not find any results."
+                    />
+                  </Typography>
+                </td>
+              </tr>
+            ) : (
+              stableSort(results.data, getComparator(order, orderBy)).map(
+                (row) => (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                    {columns.map((column) => {
+                      let result;
+                      if (column.id === 'report') {
+                        result = (
+                          <TableCell key={column.id} align={column.align}>
+                            {row['lead-image'] ? (
+                              <img
+                                className={classes.thumbnail}
+                                src={row['lead-image']}
+                                alt={row.title}
+                              />
+                            ) : null}
+                            <Typography variant="h6">{row.title}</Typography>
+                            <Typography variant="body2">
+                              {row.description}
+                            </Typography>
+                          </TableCell>
+                        );
                       } else {
-                        value = row[column.id];
+                        let value;
+                        if (column.apiField) {
+                          value = row[column.apiField];
+                        } else {
+                          value = row[column.id];
+                        }
+                        result = (
+                          <TableCell key={column.id} align={column.align}>
+                            {value && column.format
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
                       }
-                      result = (
-                        <TableCell key={column.id} align={column.align}>
-                          {value && column.format
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    }
-                    return result;
-                  })}
-                </TableRow>
-              ),
+                      return result;
+                    })}
+                  </TableRow>
+                ),
+              )
             )}
           </TableBody>
         </Table>
