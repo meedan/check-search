@@ -13,6 +13,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TableSortLabel,
   Paper,
 } from '@material-ui/core';
 import { useIntl } from 'react-intl';
@@ -76,6 +77,9 @@ function SearchResults(props) {
     pageNumber,
     setPageNumber,
   } = props;
+
+  const [order, setOrder] = React.useState('desc');
+
   if (!(results.meta && results.data)) {
     error.hasError = true;
     error.message = intl.formatMessage({
@@ -116,8 +120,10 @@ function SearchResults(props) {
     {
       id: 'score',
       label: 'Score',
+      apiField: 'score',
       minWidth: 100,
       align: 'left',
+      format: (value) => value.toFixed(2),
     },
     {
       id: 'url',
@@ -139,10 +145,46 @@ function SearchResults(props) {
   const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
   };
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPageNumber(0);
   };
+
+  // basic numerical comparator; won't work for strings and dates
+  // unless converted to numbers
+  const descendingComparator = (a, b, orderBy) => {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const getComparator = (sortOrder, orderBy) =>
+    sortOrder === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+
+  const stableSort = (array, comparator) => {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const sortOrder = comparator(a[0], b[0]);
+      if (sortOrder !== 0) return sortOrder;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  };
+
+  // TODO: replace with onClick-based orderBy
+  const orderBy = 'score';
+
+  const handleSortClick = () => {
+    setOrder(order === 'asc' ? 'desc' : 'asc');
+  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -155,49 +197,59 @@ function SearchResults(props) {
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <TableSortLabel
+                    active={orderBy === column.id}
+                    direction={orderBy === column.id ? order : 'asc'}
+                    onClick={handleSortClick}
+                  >
+                    {column.label}
+                  </TableSortLabel>
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {results.data.map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                {columns.map((column) => {
-                  let result;
-                  if (column.id === 'report') {
-                    result = (
-                      <TableCell key={column.id} align={column.align}>
-                        {row['lead-image'] ? (
-                          <img
-                            className={classes.thumbnail}
-                            src={row['lead-image']}
-                            alt={row.title}
-                          />
-                        ) : null}
-                        <Typography variant="h6">{row.title}</Typography>
-                        <Typography variant="body2">
-                          {row.description}
-                        </Typography>
-                      </TableCell>
-                    );
-                  } else {
-                    let value;
-                    if (column.apiField) {
-                      value = row[column.apiField];
+            {stableSort(results.data, getComparator(order, orderBy)).map(
+              (row) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  {columns.map((column) => {
+                    let result;
+                    if (column.id === 'report') {
+                      result = (
+                        <TableCell key={column.id} align={column.align}>
+                          {row['lead-image'] ? (
+                            <img
+                              className={classes.thumbnail}
+                              src={row['lead-image']}
+                              alt={row.title}
+                            />
+                          ) : null}
+                          <Typography variant="h6">{row.title}</Typography>
+                          <Typography variant="body2">
+                            {row.description}
+                          </Typography>
+                        </TableCell>
+                      );
                     } else {
-                      value = row[column.id];
+                      let value;
+                      if (column.apiField) {
+                        value = row[column.apiField];
+                      } else {
+                        value = row[column.id];
+                      }
+                      result = (
+                        <TableCell key={column.id} align={column.align}>
+                          {value && column.format
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
                     }
-                    result = (
-                      <TableCell key={column.id} align={column.align}>
-                        {value && column.format ? column.format(value) : value}
-                      </TableCell>
-                    );
-                  }
-                  return result;
-                })}
-              </TableRow>
-            ))}
+                    return result;
+                  })}
+                </TableRow>
+              ),
+            )}
           </TableBody>
         </Table>
       </TableContainer>
