@@ -63,12 +63,53 @@ function Sidebar(props) {
     setMediaTypes,
   } = props;
 
-  function handleSimilarityTextFieldChange(e) {
-    setSimilarity(e.target.value);
-  }
+  function SimilarityContainer() {
+    const [localSimilarity, setLocalSimilarity] = React.useState(similarity);
 
-  function handleSimilaritySliderChange(e, newValue) {
-    setSimilarity(newValue);
+    function handleSimilarityTextFieldChange(e) {
+      setLocalSimilarity(+e.target.value);
+    }
+
+    function handleSimilaritySliderChange(e, newValue) {
+      setLocalSimilarity(newValue);
+    }
+
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h6" noWrap>
+            <FormattedMessage
+              id="sidebar.similarity"
+              defaultMessage="Similarity"
+              description="This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query."
+            />
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            id="similarity-text"
+            type="number"
+            variant="outlined"
+            margin="dense"
+            value={localSimilarity}
+            onChange={handleSimilarityTextFieldChange}
+            onBlur={() => setSimilarity(localSimilarity)}
+          />
+        </Grid>
+        <Grid item xs={8} className={classes.slider}>
+          <Slider
+            defaultValue={80}
+            step={20}
+            marks
+            min={0}
+            max={100}
+            value={localSimilarity}
+            onChange={handleSimilaritySliderChange}
+            onBlur={() => setSimilarity(localSimilarity)}
+          />
+        </Grid>
+      </Grid>
+    );
   }
 
   const workspacesQuery = useQuery('workspaces');
@@ -95,38 +136,7 @@ function Sidebar(props) {
           </ListItem>
           <Divider />
           <ListItem>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography variant="h6" noWrap>
-                  <FormattedMessage
-                    id="sidebar.similarity"
-                    defaultMessage="Similarity"
-                    description="This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query."
-                  />
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  id="similarity-text"
-                  type="number"
-                  variant="outlined"
-                  margin="dense"
-                  value={similarity}
-                  onChange={handleSimilarityTextFieldChange}
-                />
-              </Grid>
-              <Grid item xs={8} className={classes.slider}>
-                <Slider
-                  defaultValue={80}
-                  step={20}
-                  marks
-                  min={0}
-                  max={100}
-                  value={similarity}
-                  onChange={handleSimilaritySliderChange}
-                />
-              </Grid>
-            </Grid>
+            <SimilarityContainer />
           </ListItem>
           <Divider />
           <Filter
