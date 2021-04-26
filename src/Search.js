@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity, workspaces, mediaTypes } = props;
+  const { similarity, workspaces, mediaTypes, fuzzy } = props;
   const [results, setResults] = useState({
     data: [],
     meta: { 'record-count': 0 },
@@ -56,6 +56,7 @@ function Search(props) {
           media_type: mediaTypes
             .filter((item) => item.isChecked)
             .map((item) => item.value),
+          fuzzy,
         },
         page: {
           size: rowsPerPage,

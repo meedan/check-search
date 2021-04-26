@@ -12,6 +12,8 @@ import {
   TextField,
   Grid,
   Divider,
+  Checkbox,
+  FormControlLabel,
 } from '@material-ui/core';
 import { useQuery } from 'jsonapi-react';
 import Filter from './Filter';
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   slider: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
   },
 }));
 
@@ -61,6 +63,8 @@ function Sidebar(props) {
     workspaces,
     setWorkspaces,
     setMediaTypes,
+    fuzzy,
+    setFuzzy,
   } = props;
 
   function SimilarityContainer() {
@@ -72,6 +76,11 @@ function Sidebar(props) {
 
     function handleSimilaritySliderChange(e, newValue) {
       setLocalSimilarity(newValue);
+    }
+
+    function handleFuzzyChange(e) {
+      const isFuzzy = e.target.checked;
+      setFuzzy(isFuzzy);
     }
 
     return (
@@ -106,6 +115,21 @@ function Sidebar(props) {
             value={localSimilarity}
             onChange={handleSimilaritySliderChange}
             onBlur={() => setSimilarity(localSimilarity)}
+          />
+        </Grid>
+        <Grid item xs={12} className={classes.slider}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                edge="start"
+                checked={fuzzy}
+                name="all"
+                tabIndex={-1}
+                onChange={handleFuzzyChange}
+                disableRipple
+              />
+            }
+            label="Fuzzy"
           />
         </Grid>
       </Grid>
@@ -178,6 +202,8 @@ Sidebar.defaultProps = {
   workspaces: [],
   setWorkspaces: undefined,
   setMediaTypes: undefined,
+  fuzzy: false,
+  setFuzzy: undefined,
 };
 
 Sidebar.propTypes = {
@@ -186,6 +212,8 @@ Sidebar.propTypes = {
   workspaces: PropTypes.array,
   setWorkspaces: PropTypes.func,
   setMediaTypes: PropTypes.func,
+  fuzzy: PropTypes.bool,
+  setFuzzy: PropTypes.func,
 };
 
 export default Sidebar;
