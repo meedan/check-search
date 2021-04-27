@@ -1,23 +1,27 @@
 {
   "filters.organizations": {
-    "string": "Publishers"
+    "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
+    "string": "الناشرون"
   },
   "filters.type": {
-    "string": "Content Type"
+    "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
+    "string": "صنف المحتوى"
   },
   "homepage.title": {
     "developer_comment": "This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another.",
-    "string": "Similarity Search Prototype"
+    "string": "نموذج البحث بالتشابه"
   },
   "search.action": {
+    "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
     "string": "بحث"
   },
   "search.genericError": {
     "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
-    "string": "Something went wrong with your search."
+    "string": "حدث خطأ ما خلال قيامك بالبحث."
   },
   "search.title": {
-    "string": "Report Database"
+    "developer_comment": "This is a message that appears above the search bar in the application. It is supposed to indicate what group of documents the user is about to search.",
+    "string": "تقرير قاعدة البيانات"
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
@@ -25,9 +29,10 @@
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
-    "string": "Similarity"
+    "string": "التشابهات"
   },
   "test.message": {
-    "string": "Test"
+    "developer_comment": "test",
+    "string": "فحص"
   }
 }

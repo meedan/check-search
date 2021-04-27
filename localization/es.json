@@ -1,15 +1,18 @@
 {
   "filters.organizations": {
-    "string": "Publishers"
+    "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
+    "string": "Editores(as)"
   },
   "filters.type": {
+    "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
     "string": "Tipo de contenido"
   },
   "homepage.title": {
     "developer_comment": "This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another.",
-    "string": "Similarity search prototype"
+    "string": "Protocolo de Búsqueda de Similaridad"
   },
   "search.action": {
+    "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
     "string": "Buscar "
   },
   "search.genericError": {
@@ -17,6 +20,7 @@
     "string": "Algo salió mal con su búsqueda."
   },
   "search.title": {
+    "developer_comment": "This is a message that appears above the search bar in the application. It is supposed to indicate what group of documents the user is about to search.",
     "string": "Informes"
   },
   "sidebar.filters": {
@@ -25,9 +29,10 @@
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
-    "string": "Similarity"
+    "string": "Similaridad"
   },
   "test.message": {
+    "developer_comment": "test",
     "string": "Test"
   }
 }

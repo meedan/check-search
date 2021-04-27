@@ -1,8 +1,10 @@
 {
   "filters.organizations": {
+    "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
     "string": "Publishers"
   },
   "filters.type": {
+    "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
     "string": "Tip de conținut"
   },
   "homepage.title": {
@@ -10,6 +12,7 @@
     "string": "Prototip căutare similarități"
   },
   "search.action": {
+    "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
     "string": "Căutare"
   },
   "search.genericError": {
@@ -17,6 +20,7 @@
     "string": "Ceva nu a mers la căutare."
   },
   "search.title": {
+    "developer_comment": "This is a message that appears above the search bar in the application. It is supposed to indicate what group of documents the user is about to search.",
     "string": "Bază de date cu rapoarte"
   },
   "sidebar.filters": {
@@ -28,6 +32,7 @@
     "string": "Similarity"
   },
   "test.message": {
+    "developer_comment": "test",
     "string": "Testare"
   }
 }
