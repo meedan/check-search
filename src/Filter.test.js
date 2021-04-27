@@ -4,10 +4,17 @@ import Filter from './Filter';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
 describe('<Filter />', () => {
-  const items = [
-    ['Item 1A', 'Item 1B'],
-    ['Item 2A'],
-    ['Item 3A', 'Item 3B', 'Item 3C'],
+  const values = [
+    {
+      label: 'Item 1',
+      value: '1',
+      isChecked: false,
+    },
+    {
+      label: 'Item 2',
+      value: '2',
+      isChecked: false,
+    },
   ];
 
   it('renders the basic filter', () => {
@@ -20,18 +27,16 @@ describe('<Filter />', () => {
             description="test"
           />
         }
-        items={items}
+        value={values}
       />,
     );
-    expect(wrapper.props().items).toEqual(items);
+    expect(wrapper.props().value).toEqual(values);
     // Check for hard-coded items
-    expect(wrapper.find('.item').first().text()).toEqual('Item 1A');
-    expect(wrapper.find('.item').last().text()).toEqual('Item 3C');
-    // A divider element goes between each group of items, so two in this case
-    expect(wrapper.find('hr.divider').length).toBe(2);
+    expect(wrapper.find('.MuiListItemText-dense').first().text()).toEqual('All');
+    expect(wrapper.find('.MuiListItemText-dense').last().text()).toEqual('Item 2');
   });
 
-  it('renders hard coded items and a loading spinner while query is running', () => {
+  it('renders a loading spinner while query is running', () => {
     const query = {
       isLoading: true,
       isFetching: true,
@@ -46,13 +51,9 @@ describe('<Filter />', () => {
             description="test"
           />
         }
-        items={items}
         query={query}
       />,
     );
-    // Check for hard-coded items
-    expect(wrapper.find('.item').first().text()).toEqual('Item 1A');
-    expect(wrapper.find('.item').last().text()).toEqual('Item 3C');
     // Look for loading spinner
     expect(wrapper.find('.MuiCircularProgress-root').length).toBe(1);
   });
@@ -71,7 +72,6 @@ describe('<Filter />', () => {
             description="test"
           />
         }
-        items={items}
         query={query}
       />,
     );

@@ -76,6 +76,10 @@
 
         // react-intl / formatjs rules
         "formatjs/enforce-description": 2,
+
+        // don't mind if there is a parameter reassignment to an object property
+        "no-param-reassign": [2, { "props": false }],
+
     },
     "overrides": [
         {
