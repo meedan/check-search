@@ -12,7 +12,7 @@ RUN groupadd -r search
 RUN useradd -ms /bin/bash -g search search
 RUN chown search:search .
 
-RUN apt-get update || : && apt-get install -y python jq unzip curl
+RUN apt-get update || : && apt-get install -y python python-pip jq unzip curl git
 
 # Due to the outdated version of awscli in upstream repos, manually install latest from Amazon.
 RUN curl --silent --show-error --fail "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -22,6 +22,9 @@ RUN curl --silent --show-error --fail "https://awscli.amazonaws.com/awscli-exe-l
 
 COPY --chown=search:search package.json package-lock.json ./
 RUN npm install $INSTALL_ARGS
+
+# tx client
+RUN pip install --upgrade transifex-client
 
 COPY --chown=search:search . .
 
