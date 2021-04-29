@@ -8,12 +8,13 @@ import {
   Typography,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   Slider,
   TextField,
   Grid,
   Divider,
   Checkbox,
-  FormControlLabel,
 } from '@material-ui/core';
 import { useQuery } from 'jsonapi-react';
 import Filter from './Filter';
@@ -32,8 +33,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     padding: theme.spacing(3),
   },
-  slider: {
+  smallPadding: {
     padding: theme.spacing(1),
+  },
+  mediumPadding: {
+    padding: '4px 16px 4px 16px',
   },
 }));
 
@@ -67,6 +71,11 @@ function Sidebar(props) {
     setFuzzy,
   } = props;
 
+  function handleFuzzyChange(e) {
+    const isFuzzy = e.target.checked;
+    setFuzzy(isFuzzy);
+  }
+
   function SimilarityContainer() {
     const [localSimilarity, setLocalSimilarity] = React.useState(similarity);
 
@@ -78,9 +87,8 @@ function Sidebar(props) {
       setLocalSimilarity(newValue);
     }
 
-    function handleFuzzyChange(e) {
-      const isFuzzy = e.target.checked;
-      setFuzzy(isFuzzy);
+    function handleBlur() {
+      setSimilarity(localSimilarity);
     }
 
     return (
@@ -102,10 +110,10 @@ function Sidebar(props) {
             margin="dense"
             value={localSimilarity}
             onChange={handleSimilarityTextFieldChange}
-            onBlur={() => setSimilarity(localSimilarity)}
+            onBlur={handleBlur}
           />
         </Grid>
-        <Grid item xs={8} className={classes.slider}>
+        <Grid item xs={8} className={classes.smallPadding}>
           <Slider
             defaultValue={80}
             step={20}
@@ -114,22 +122,7 @@ function Sidebar(props) {
             max={100}
             value={localSimilarity}
             onChange={handleSimilaritySliderChange}
-            onBlur={() => setSimilarity(localSimilarity)}
-          />
-        </Grid>
-        <Grid item xs={12} className={classes.slider}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                edge="start"
-                checked={fuzzy}
-                name="all"
-                tabIndex={-1}
-                onChange={handleFuzzyChange}
-                disableRipple
-              />
-            }
-            label="Fuzzy"
+            onBlur={handleBlur}
           />
         </Grid>
       </Grid>
@@ -161,6 +154,17 @@ function Sidebar(props) {
           <Divider />
           <ListItem>
             <SimilarityContainer />
+          </ListItem>
+          <ListItem button className={classes.mediumPadding}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={fuzzy}
+                name="fuzzy"
+                onClick={handleFuzzyChange}
+              />
+            </ListItemIcon>
+            <ListItemText primary="Fuzzy" />
           </ListItem>
           <Divider />
           <Filter
