@@ -15,6 +15,7 @@ import {
   TableRow,
   TableSortLabel,
   Paper,
+  CircularProgress,
 } from '@material-ui/core';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -48,6 +49,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function SearchLoading() {
+  const classes = useStyles();
+  return (
+    <>
+      <Grid item xs={12} key="error" className={classes.results}>
+        <Card variant="outlined">
+          <CardContent>
+            <div className={classes.loading}>
+              <CircularProgress />
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+    </>
+  );
+}
+
 function SearchError(props) {
   const classes = useStyles();
   const { error } = props;
@@ -79,6 +97,7 @@ function SearchResults(props) {
     setRowsPerPage,
     pageNumber,
     setPageNumber,
+    isLoading,
   } = props;
 
   const [order, setOrder] = React.useState('desc');
@@ -94,6 +113,9 @@ function SearchResults(props) {
   }
   if (error.hasError) {
     return <SearchError error={error} />;
+  }
+  if (isLoading) {
+    return <SearchLoading />;
   }
   const columns = [
     {
