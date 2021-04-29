@@ -19,6 +19,10 @@
     "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
     "string": "Something went wrong with your search."
   },
+  "search.noResults": {
+    "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
+    "string": "No results found."
+  },
   "search.title": {
     "developer_comment": "This is a message that appears above the search bar in the application. It is supposed to indicate what group of documents the user is about to search.",
     "string": "Report Database"
@@ -30,6 +34,30 @@
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
     "string": "Similarity"
+  },
+  "sort.published": {
+    "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
+    "string": "Опубликован"
+  },
+  "sort.report": {
+    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports made and claims filed in Check.",
+    "string": "Reports & Claims"
+  },
+  "sort.score": {
+    "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
+    "string": "Score"
+  },
+  "sort.sent": {
+    "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",
+    "string": "Отправлено"
+  },
+  "sort.status": {
+    "developer_comment": "This is a header for a column in a search results table that contains a field saying whether a fact-checked claim or report was deemed false or true.",
+    "string": "Статус"
+  },
+  "sort.url": {
+    "developer_comment": "This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.",
+    "string": "Published article"
   },
   "test.message": {
     "developer_comment": "test",
