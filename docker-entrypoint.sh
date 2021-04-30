@@ -39,6 +39,7 @@ if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   cat /etc/nginx/nginx.conf|sed 's/access_log .var.log.nginx.access.log/access_log \/dev\/stdout/'| \
       sed 's/error_log .var.log.nginx.error.log/error_log \/dev\/stdout/' > /tmp/.tmpf
   cat /tmp/.tmpf > /etc/nginx/nginx.conf
+  echo "Serving content via nginx..."
   nginx -g 'daemon off;'
 else
   # Developer entrypoint:
