@@ -1,7 +1,15 @@
 {
+  "filters.archived": {
+    "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
+    "string": "Trash"
+  },
   "filters.organizations": {
     "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
     "string": "Publishers"
+  },
+  "filters.published": {
+    "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not.",
+    "string": "Published"
   },
   "filters.type": {
     "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
