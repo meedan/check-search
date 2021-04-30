@@ -72,6 +72,19 @@ const archivedOptions = [
   },
 ];
 
+const publishedOptions = [
+  {
+    label: 'Not published',
+    value: 'paused',
+    isChecked: false,
+  },
+  {
+    label: 'Published',
+    value: 'published',
+    isChecked: false,
+  },
+];
+
 function Sidebar(props) {
   const classes = useStyles();
   const {
@@ -80,6 +93,7 @@ function Sidebar(props) {
     workspaces,
     setWorkspaces,
     setArchived,
+    setPublished,
     setMediaTypes,
     fuzzy,
     setFuzzy,
@@ -212,6 +226,19 @@ function Sidebar(props) {
             header={
               <Typography variant="h6" noWrap>
                 <FormattedMessage
+                  id="filters.published"
+                  defaultMessage="Published"
+                  description="This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not."
+                />
+              </Typography>
+            }
+            value={publishedOptions}
+            setValue={setPublished}
+          />
+          <Filter
+            header={
+              <Typography variant="h6" noWrap>
+                <FormattedMessage
                   id="filters.archived"
                   defaultMessage="Trash"
                   description="This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash."
@@ -234,6 +261,8 @@ Sidebar.defaultProps = {
   workspaces: [],
   setWorkspaces: undefined,
   setMediaTypes: undefined,
+  setArchived: undefined,
+  setPublished: undefined,
   fuzzy: false,
   setFuzzy: undefined,
 };
@@ -244,6 +273,8 @@ Sidebar.propTypes = {
   workspaces: PropTypes.array,
   setWorkspaces: PropTypes.func,
   setMediaTypes: PropTypes.func,
+  setArchived: PropTypes.func,
+  setPublished: PropTypes.func,
   fuzzy: PropTypes.bool,
   setFuzzy: PropTypes.func,
 };

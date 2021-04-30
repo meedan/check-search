@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity, workspaces, mediaTypes, archived, fuzzy } = props;
+  const { similarity, workspaces, mediaTypes, archived, published, fuzzy } = props;
   const [results, setResults] = useState({
     data: [],
     meta: { 'record-count': 0 },
@@ -96,6 +96,12 @@ function Search(props) {
       ? ''
       : archived.filter((item) => item.isChecked).map((item) => item.value)[0];
 
+    const publishedAllChecked =
+      published.every((item) => item.isChecked) || published.length === 0;
+    const publishedParam = publishedAllChecked
+      ? ''
+      : published.filter((item) => item.isChecked).map((item) => item.value)[0];
+
     if (imgData.data.length > 0) {
       // This is an image, so we do a multipart/form (non JSONAPI-compliant)
       // request
@@ -112,6 +118,9 @@ function Search(props) {
       }
       if (!archivedAllChecked) {
         formData.append('filter[archived]', archivedParam ? 1 : 0);
+      }
+      if (!publishedAllChecked) {
+        formData.append('filter[report_state]', publishedParam);
       }
       formData.append('page[size]', size);
       formData.append('page[number]', number);
@@ -139,6 +148,7 @@ function Search(props) {
             similarity_organization_ids,
             media_type,
             archived: archivedParam ? 1 : 0,
+            report_state: publishedParam,
             fuzzy,
           },
           page: {
@@ -335,12 +345,16 @@ Search.defaultProps = {
   similarity: 90,
   workspaces: [],
   mediaTypes: [],
+  archived: [],
+  published: [],
 };
 
 Search.propTypes = {
   similarity: PropTypes.number,
   workspaces: PropTypes.array,
   mediaTypes: PropTypes.array,
+  archived: PropTypes.array,
+  published: PropTypes.array,
 };
 
 export default Search;

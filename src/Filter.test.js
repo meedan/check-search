@@ -32,8 +32,12 @@ describe('<Filter />', () => {
     );
     expect(wrapper.props().value).toEqual(values);
     // Check for hard-coded items
-    expect(wrapper.find('.MuiListItemText-dense').first().text()).toEqual('All');
-    expect(wrapper.find('.MuiListItemText-dense').last().text()).toEqual('Item 2');
+    expect(wrapper.find('.MuiListItemText-dense').first().text()).toEqual(
+      'All',
+    );
+    expect(wrapper.find('.MuiListItemText-dense').last().text()).toEqual(
+      'Item 2',
+    );
   });
 
   it('renders a loading spinner while query is running', () => {
@@ -79,5 +83,55 @@ describe('<Filter />', () => {
     expect(
       wrapper.find('.MuiTypography-root.filter-error-message').length,
     ).toEqual(1);
+  });
+
+  it('renders autocomplete when passed a query and query succeeds', () => {
+    const query = {
+      isLoading: false,
+      isFetching: false,
+      data: [
+        {
+          id: '1',
+          name: 'Meedan',
+          slug: 'meedan',
+        },
+        {
+          id: '34',
+          name: 'test',
+          slug: 'test',
+        },
+        {
+          id: '35',
+          name: 'Test workspace',
+          slug: 'test-workspace',
+        },
+      ],
+    };
+    const wrapper = mountWithIntl(
+      <Filter
+        header={
+          <FormattedMessage
+            id="test.message"
+            defaultMessage="Test"
+            description="test"
+          />
+        }
+        query={query}
+      />,
+    );
+
+    // Autocomplete is rendered
+    expect(
+      wrapper.find('button.MuiAutocomplete-popupIndicator').length,
+    ).toEqual(1);
+    // click the popup to show options
+    wrapper.find('button.MuiAutocomplete-popupIndicator').simulate('click');
+    expect(
+      wrapper.find('div.MuiAutocomplete-popper').length,
+    ).toEqual(1);
+    // first option is labeled "Meedan"
+    expect(
+      wrapper.find('.MuiAutocomplete-option').first().text(),
+    ).toEqual('Meedan');
   });
 });
