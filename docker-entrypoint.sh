@@ -37,7 +37,7 @@ if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
     ln -s /app/dist /var/www/html
     cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
     cat /tmp/.tmpf > /etc/nginx/sites-available/default
-    kill -HUP `cat /var/run/nginx.pid`
+    nginx -g 'daemon off;'
   fi
 else
   npm run start
