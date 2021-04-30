@@ -138,7 +138,7 @@ function Filter(props) {
 
   return (
     <div>
-      <ListItem button onClick={handleClick}>
+      <ListItem className="header-button" button onClick={handleClick}>
         <ListItemText>{header}</ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>

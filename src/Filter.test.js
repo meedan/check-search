@@ -12,7 +12,7 @@ describe('<Filter />', () => {
     },
     {
       label: 'Item 2',
-      value: '2',
+      value: 'two',
       isChecked: false,
     },
   ];
@@ -28,6 +28,7 @@ describe('<Filter />', () => {
           />
         }
         value={values}
+        setValue={jest.fn()}
       />,
     );
     expect(wrapper.props().value).toEqual(values);
@@ -38,6 +39,44 @@ describe('<Filter />', () => {
     expect(wrapper.find('.MuiListItemText-dense').last().text()).toEqual(
       'Item 2',
     );
+    // filter can be minimized
+    // click the button to minimize
+    expect(wrapper.find('div.MuiCollapse-entered').length).toEqual(1);
+    wrapper.find('div.header-button').simulate('click');
+    expect(wrapper.find('div.MuiCollapse-entered').length).toEqual(0);
+
+    // check the "all" checkbox to cause all boxes to be checked
+    expect(wrapper.find('span.Mui-checked').length).toEqual(0);
+    wrapper
+      .find('input[name="all"]')
+      .simulate('change', { target: { checked: true } });
+    expect(wrapper.find('span.Mui-checked').length).toEqual(3);
+    // uncheck "all"
+    wrapper
+      .find('input[name="all"]')
+      .simulate('change', { target: { checked: false } });
+    expect(wrapper.find('span.Mui-checked').length).toEqual(0);
+
+    // check Item 2, only that item should be checked
+    wrapper
+      .find('input[name="two"]')
+      .simulate('change', { target: { checked: true, name: 'two' } });
+    wrapper.setProps({});
+    expect(wrapper.find('span.Mui-checked').length).toEqual(1);
+
+    // check Item 1, now all THREE including the "all" should be selected
+    wrapper
+      .find('input[name="1"]')
+      .simulate('change', { target: { checked: true, name: '1' } });
+    wrapper.setProps({});
+    expect(wrapper.find('span.Mui-checked').length).toEqual(3);
+
+    // uncheck Item 1, now all should be back to just one item (two, with "all" and "1" not selected)
+    wrapper
+      .find('input[name="1"]')
+      .simulate('change', { target: { checked: false, name: '1' } });
+    wrapper.setProps({});
+    expect(wrapper.find('span.Mui-checked').length).toEqual(1);
   });
 
   it('renders a loading spinner while query is running', () => {
@@ -126,12 +165,10 @@ describe('<Filter />', () => {
     ).toEqual(1);
     // click the popup to show options
     wrapper.find('button.MuiAutocomplete-popupIndicator').simulate('click');
-    expect(
-      wrapper.find('div.MuiAutocomplete-popper').length,
-    ).toEqual(1);
+    expect(wrapper.find('div.MuiAutocomplete-popper').length).toEqual(1);
     // first option is labeled "Meedan"
-    expect(
-      wrapper.find('.MuiAutocomplete-option').first().text(),
-    ).toEqual('Meedan');
+    expect(wrapper.find('.MuiAutocomplete-option').first().text()).toEqual(
+      'Meedan',
+    );
   });
 });
