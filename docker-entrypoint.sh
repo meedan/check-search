@@ -30,6 +30,8 @@ fi
 if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   # Production entrypoint
   if [ ! -d dist ]; then
+    npm install --save-dev webpack
+    npm install --save-dev webpack-cli
     npm install $INSTALL_ARGS
     npm run build
   fi
