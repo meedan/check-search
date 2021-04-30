@@ -21,7 +21,8 @@ RUN curl --silent --show-error --fail "https://awscli.amazonaws.com/awscli-exe-l
       rm -rf awscliv2.zip
 
 COPY --chown=search:search package.json package-lock.json ./
-RUN npm install $INSTALL_ARGS
+RUN npm install
+RUN npm run build
 
 # tx client
 RUN pip install --upgrade transifex-client
