@@ -29,8 +29,10 @@ fi
 #
 if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   # Production entrypoint
+  #
   npm install
   npm run build
+  ls -l dist
   mv /var/www/html /var/www/prev-html
   ln -s /app/dist /var/www/html
   cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
