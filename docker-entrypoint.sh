@@ -25,4 +25,20 @@ fi
 npm install
 # npm run test:lint
 # npm run test
-npm run start
+
+# NOTE: for a production environment (QA, Live) we serve content
+# via separate web server (nginx). Otherwise, run in development
+# mode directly.
+#
+if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
+  # this is a minimal node runtime, without most utilities.  compensate :)
+  if [ -f /var/www/html/index.nginx-debian.html ]; then
+    mv /var/www/html /var/www/prev-html
+    ln -s /app/dist /var/www/html
+    cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
+    cat /tmp/.tmpf > /etc/nginx/sites-available/default
+    kill -HUP `cat /var/run/nginx.pid`
+  fi
+else
+  npm run start
+fi
