@@ -30,6 +30,7 @@ fi
 if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   # Production entrypoint
   if [ ! -d dist ]; then
+    npm install $INSTALL_ARGS
     npm run build
   fi
   # this is a minimal node runtime, without most utilities.  compensate :)
