@@ -296,8 +296,8 @@ function SearchInput(props) {
           >
             <FormattedMessage
               id="search.image"
-              defaultMessage="Add image or video"
-              description="This is a label on a button that the user presses in order to upload an image or video file that will then be searched for. This action opens a file picker prompt."
+              defaultMessage="Add image"
+              description="This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt."
             />
           </Button>
         </label>
