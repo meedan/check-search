@@ -22,7 +22,7 @@ RUN curl --silent --show-error --fail "https://awscli.amazonaws.com/awscli-exe-l
 
 COPY --chown=search:search package.json package-lock.json ./
 RUN npm install $INSTALL_ARGS
-RUN if [[ "$INSTALL_ARGS" != "" ]]; then npm build; fi
+RUN if [[ "$INSTALL_ARGS" != "" ]]; then npm run build; fi
 
 # tx client
 RUN pip install --upgrade transifex-client
