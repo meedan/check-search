@@ -32,14 +32,14 @@ if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   #
   npm install
   npm run build
-  ls -l dist
-  mv /var/www/html /var/www/prev-html
+  mv /var/www/html /var/www/dist-html
   ln -s /app/dist /var/www/html
   cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
   cat /tmp/.tmpf > /etc/nginx/sites-available/default
+  cat /etc/nginx/nginx.conf|sed 's/access_log .var.log.nginx.access.log/access_log \/dev\/stdout/'| \
+      sed 's/error_log .var.log.nginx.error.log/error_log \/dev\/stdout/' > /tmp/.tmpf
+  cat /tmp/.tmpf > /etc/nginx/nginx.conf
   nginx -g 'daemon off;'
-  # add a post-exit sleep for debugging
-  sleep 3600
 else
   # Developer entrypoint:
   #
