@@ -22,15 +22,16 @@ else
     cp config.js.example config.js
 fi
 
-npm install
-# npm run test:lint
-# npm run test
 
 # NOTE: for a production environment (QA, Live) we serve content
 # via separate web server (nginx). Otherwise, run in development
 # mode directly.
 #
 if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
+  # Production entrypoint
+  if [ ! -d dist ]; then
+    npm run build
+  fi
   # this is a minimal node runtime, without most utilities.  compensate :)
   if [ -f /var/www/html/index.nginx-debian.html ]; then
     mv /var/www/html /var/www/prev-html
@@ -40,5 +41,10 @@ if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
     nginx -g 'daemon off;'
   fi
 else
+  # Developer entrypoint:
+  #
+  npm install
+  # npm run test:lint
+  # npm run test
   npm run start
 fi
