@@ -29,18 +29,15 @@ fi
 #
 if [[ "$DEPLOY_ENV" == "qa" || "$DEPLOY_ENV" == "live" ]]; then
   # Production entrypoint
-  if [ ! -d dist ]; then
-    npm install
-    npm run build
-  fi
-  # this is a minimal node runtime, without most utilities.  compensate :)
-  if [ -f /var/www/html/index.nginx-debian.html ]; then
-    mv /var/www/html /var/www/prev-html
-    ln -s /app/dist /var/www/html
-    cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
-    cat /tmp/.tmpf > /etc/nginx/sites-available/default
-    nginx -g 'daemon off;'
-  fi
+  npm install
+  npm run build
+  mv /var/www/html /var/www/prev-html
+  ln -s /app/dist /var/www/html
+  cat /etc/nginx/sites-available/default | sed 's/listen 80 default_server/listen 8001 default_server/' > /tmp/.tmpf
+  cat /tmp/.tmpf > /etc/nginx/sites-available/default
+  nginx -g 'daemon off;'
+  # add a post-exit sleep for debugging
+  sleep 3600
 else
   # Developer entrypoint:
   #
