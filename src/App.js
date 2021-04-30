@@ -93,6 +93,7 @@ function App() {
   const [similarity, setSimilarity] = useState(90);
   const [workspaces, setWorkspaces] = useState([]);
   const [mediaTypes, setMediaTypes] = useState([]);
+  const [archived, setArchived] = useState([]);
   const [fuzzy, setFuzzy] = useState(false);
 
   const muiTheme = createMuiTheme({
@@ -134,13 +135,16 @@ function App() {
                   setSimilarity,
                   workspaces,
                   setWorkspaces,
-                  mediaTypes,
                   setMediaTypes,
+                  archived,
+                  setArchived,
                   fuzzy,
                   setFuzzy,
                 }}
               />
-              <Search {...{ similarity, workspaces, mediaTypes, fuzzy }} />
+              <Search
+                {...{ similarity, workspaces, mediaTypes, archived, fuzzy }}
+              />
             </div>
           </ThemeProvider>
         </StylesProvider>

@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity, workspaces, mediaTypes, fuzzy } = props;
+  const { similarity, workspaces, mediaTypes, archived, fuzzy } = props;
   const [results, setResults] = useState({
     data: [],
     meta: { 'record-count': 0 },
@@ -90,6 +90,12 @@ function Search(props) {
     const number = pageNumber + 1;
     const size = rowsPerPage;
 
+    const archivedAllChecked =
+      archived.every((item) => item.isChecked) || archived.length === 0;
+    const archivedParam = archivedAllChecked
+      ? ''
+      : archived.filter((item) => item.isChecked).map((item) => item.value)[0];
+
     if (imgData.data.length > 0) {
       // This is an image, so we do a multipart/form (non JSONAPI-compliant)
       // request
@@ -103,6 +109,9 @@ function Search(props) {
       );
       if (media_type.length > 0) {
         formData.append('filter[media_type]', media_type);
+      }
+      if (!archivedAllChecked) {
+        formData.append('filter[archived]', archivedParam ? 1 : 0);
       }
       formData.append('page[size]', size);
       formData.append('page[number]', number);
@@ -129,6 +138,7 @@ function Search(props) {
             similarity_threshold,
             similarity_organization_ids,
             media_type,
+            archived: archivedParam ? 1 : 0,
             fuzzy,
           },
           page: {

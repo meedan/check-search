@@ -59,6 +59,19 @@ const mediaTypeOptions = [
   },
 ];
 
+const archivedOptions = [
+  {
+    label: 'Not trashed',
+    value: false,
+    isChecked: true,
+  },
+  {
+    label: 'Trashed',
+    value: true,
+    isChecked: false,
+  },
+];
+
 function Sidebar(props) {
   const classes = useStyles();
   const {
@@ -66,6 +79,7 @@ function Sidebar(props) {
     setSimilarity,
     workspaces,
     setWorkspaces,
+    setArchived,
     setMediaTypes,
     fuzzy,
     setFuzzy,
@@ -193,6 +207,20 @@ function Sidebar(props) {
             }
             value={mediaTypeOptions}
             setValue={setMediaTypes}
+          />
+          <Filter
+            header={
+              <Typography variant="h6" noWrap>
+                <FormattedMessage
+                  id="filters.archived"
+                  defaultMessage="Trash"
+                  description="This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash."
+                />
+              </Typography>
+            }
+            value={archivedOptions}
+            setValue={setArchived}
+            isOpenDefault={false}
           />
         </List>
       </div>

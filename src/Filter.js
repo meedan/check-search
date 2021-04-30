@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Filter(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const { query, header, setValue, value, isOpenDefault } = props;
+  const [open, setOpen] = React.useState(isOpenDefault !== undefined ? isOpenDefault : true);
   const [selectAllChecked, setSelectAllChecked] = React.useState(false);
-  const { query, header, setValue, value } = props;
   let items = [];
 
   function handleClick() {
@@ -41,8 +41,9 @@ function Filter(props) {
   function handleCheck(e) {
     // find the correct value by value, flip it, set it
     const newArr = [...value];
-    newArr[value.findIndex((item) => item.value === e.target.name)].isChecked =
-      e.target.checked;
+    newArr[
+      value.findIndex((item) => item.value.toString() === e.target.name)
+    ].isChecked = e.target.checked;
     setValue(newArr);
 
     // modify "All" as needed
@@ -89,7 +90,7 @@ function Filter(props) {
             <Checkbox
               edge="start"
               checked={item.isChecked}
-              name={item.value}
+              name={item.value.toString()}
               tabIndex={-1}
               disableRipple
               onChange={handleCheck}
