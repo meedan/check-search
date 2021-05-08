@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import {
   makeStyles,
   Drawer,
-  Toolbar,
   Typography,
   List,
   ListItem,
@@ -19,15 +18,13 @@ import {
 import { useQuery } from 'jsonapi-react';
 import Filter from './Filter';
 
-const drawerWidth = 297;
-
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    width: theme.drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: theme.drawerWidth,
   },
   drawerContainer: {
     overflow: 'auto',
@@ -41,50 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mediaTypeOptions = [
-  {
-    label: 'Link',
-    value: 'Link',
-    isChecked: false,
-  },
-  {
-    label: 'Text',
-    value: 'Claim',
-    isChecked: false,
-  },
-  {
-    label: 'Image',
-    value: 'UploadedImage',
-    isChecked: false,
-  },
-];
-
-const archivedOptions = [
-  {
-    label: 'Not trashed',
-    value: false,
-    isChecked: true,
-  },
-  {
-    label: 'Trashed',
-    value: true,
-    isChecked: false,
-  },
-];
-
-const publishedOptions = [
-  {
-    label: 'Not published',
-    value: 'paused',
-    isChecked: false,
-  },
-  {
-    label: 'Published',
-    value: 'published',
-    isChecked: false,
-  },
-];
-
 function Sidebar(props) {
   const classes = useStyles();
   const {
@@ -92,8 +45,11 @@ function Sidebar(props) {
     setSimilarity,
     workspaces,
     setWorkspaces,
+    archived,
     setArchived,
+    published,
     setPublished,
+    mediaTypes,
     setMediaTypes,
     fuzzy,
     setFuzzy,
@@ -157,7 +113,10 @@ function Sidebar(props) {
     );
   }
 
-  const workspacesQuery = useQuery('workspaces');
+  const workspacesQuery = useQuery([
+    'workspaces',
+    { filter: { is_tipline_installed: 1 } },
+  ]);
 
   return (
     <Drawer
@@ -167,7 +126,6 @@ function Sidebar(props) {
         paper: classes.drawerPaper,
       }}
     >
-      <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
           <ListItem>
@@ -190,6 +148,7 @@ function Sidebar(props) {
                 checked={fuzzy}
                 name="fuzzy"
                 onClick={handleFuzzyChange}
+                color="primary"
               />
             </ListItemIcon>
             <ListItemText primary="Fuzzy" />
@@ -208,6 +167,7 @@ function Sidebar(props) {
             query={workspacesQuery}
             setValue={setWorkspaces}
             value={workspaces}
+            isAllDefault
           />
           <Filter
             header={
@@ -219,8 +179,9 @@ function Sidebar(props) {
                 />
               </Typography>
             }
-            value={mediaTypeOptions}
+            value={mediaTypes}
             setValue={setMediaTypes}
+            isAllDefault
           />
           <Filter
             header={
@@ -232,8 +193,9 @@ function Sidebar(props) {
                 />
               </Typography>
             }
-            value={publishedOptions}
+            value={published}
             setValue={setPublished}
+            isAllDefault
           />
           <Filter
             header={
@@ -245,9 +207,10 @@ function Sidebar(props) {
                 />
               </Typography>
             }
-            value={archivedOptions}
+            value={archived}
             setValue={setArchived}
             isOpenDefault={false}
+            isAllDefault={false}
           />
         </List>
       </div>

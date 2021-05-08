@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { IntlProvider, FormattedMessage } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
-  AppBar,
-  Toolbar,
-  Typography,
   CssBaseline,
   CircularProgress,
 } from '@material-ui/core';
@@ -88,13 +85,64 @@ function AsyncIntlProvider({ children }) {
   );
 }
 
+const mediaTypeOptions = [
+  {
+    label: 'Link',
+    value: 'Link',
+    isChecked: true,
+  },
+  {
+    label: 'Text',
+    value: 'Claim',
+    isChecked: true,
+  },
+  {
+    label: 'Image',
+    value: 'UploadedImage',
+    isChecked: true,
+  },
+];
+
+const archivedOptions = [
+  {
+    label: 'Not trashed',
+    value: false,
+    isChecked: true,
+  },
+  {
+    label: 'Trashed',
+    value: true,
+    isChecked: false,
+  },
+];
+
+const publishedOptions = [
+  {
+    label: 'Not published',
+    value: 'unpublished',
+    isChecked: true,
+  },
+  {
+    label: 'Paused',
+    value: 'paused',
+    isChecked: true,
+  },
+  {
+    label: 'Published',
+    value: 'published',
+    isChecked: true,
+  },
+];
+
 function App() {
   const classes = useStyles();
   const [similarity, setSimilarity] = useState(90);
-  const [workspaces, setWorkspaces] = useState([]);
-  const [mediaTypes, setMediaTypes] = useState([]);
-  const [archived, setArchived] = useState([]);
-  const [published, setPublished] = useState([]);
+  const [workspaces, setWorkspaces] = useState([
+    { id: -1, name: 'All', slug: 'ui-select-all' },
+  ]);
+  const [mediaTypes, setMediaTypes] = useState(mediaTypeOptions);
+  const [archived, setArchived] = useState(archivedOptions);
+  const [published, setPublished] = useState(publishedOptions);
   const [fuzzy, setFuzzy] = useState(false);
 
   const muiTheme = createMuiTheme({
@@ -104,6 +152,7 @@ function App() {
       },
     },
     direction,
+    drawerWidth: 297,
   });
 
   return (
@@ -119,32 +168,31 @@ function App() {
           <ThemeProvider theme={muiTheme}>
             <div className={classes.root}>
               <CssBaseline />
-              <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                  <Typography variant="h6" noWrap>
-                    <FormattedMessage
-                      id="homepage.title"
-                      defaultMessage="Similarity Search Prototype"
-                      description="This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another."
-                    />
-                  </Typography>
-                </Toolbar>
-              </AppBar>
               <Sidebar
                 {...{
                   similarity,
                   setSimilarity,
                   workspaces,
                   setWorkspaces,
+                  mediaTypes,
                   setMediaTypes,
+                  archived,
                   setArchived,
+                  published,
                   setPublished,
                   fuzzy,
                   setFuzzy,
                 }}
               />
               <Search
-                {...{ similarity, workspaces, mediaTypes, archived, published, fuzzy }}
+                {...{
+                  similarity,
+                  workspaces,
+                  mediaTypes,
+                  archived,
+                  published,
+                  fuzzy,
+                }}
               />
             </div>
           </ThemeProvider>

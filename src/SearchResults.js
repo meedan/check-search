@@ -38,31 +38,66 @@ const useStyles = makeStyles((theme) => ({
     height: 700,
     maxHeight: 700,
   },
+  spacer: {
+    flex: '0',
+  },
+  headerCellRoot: {
+    padding: theme.spacing(1),
+  },
   thumbnail: {
     padding: theme.spacing(1),
-    maxHeight: '200px',
-    maxWidth: '200px',
+    objectPosition: 'center',
+    objectFit: 'cover',
+    height: '100px',
+    width: '100px',
     float: 'left',
   },
   noResults: {
     margin: theme.spacing(2),
+  },
+  subRow: {
+    color: '#979797',
+    fontWeight: 'bold',
+  },
+  secondRow: {
+    verticalAlign: 'top',
+  },
+  evenItem: {
+    backgroundColor: '#f6f6f6',
+  },
+  itemTitle: {
+    fontSize: '0.875rem',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: 800,
+    lineHeight: 1.43,
+    letterSpacing: '0.01071em',
+  },
+  itemDescription: {
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    overflow: 'hidden',
+  },
+  claimGroup: {
+    backgroundColor: '#ced3e2',
+  },
+  leftBorder: {
+    borderLeft: '1px solid #ced3e2',
   },
 }));
 
 function SearchLoading() {
   const classes = useStyles();
   return (
-    <>
-      <Grid item xs={12} key="error" className={classes.results}>
-        <Card variant="outlined">
-          <CardContent>
-            <div className={classes.loading}>
-              <CircularProgress />
-            </div>
-          </CardContent>
-        </Card>
-      </Grid>
-    </>
+    <Grid item xs={12} key="error" className={classes.results}>
+      <Card variant="outlined">
+        <CardContent>
+          <div className={classes.loading}>
+            <CircularProgress />
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }
 
@@ -117,16 +152,32 @@ function SearchResults(props) {
   if (isLoading) {
     return <SearchLoading />;
   }
+
   const columns = [
     {
       id: 'report',
       label: intl.formatMessage({
         id: 'sort.report',
-        defaultMessage: 'Reports & Claims',
+        defaultMessage: 'Report',
         description:
-          'This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports made and claims filed in Check.',
+          'This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports created by Check analysts.',
       }),
-      minWidth: 170,
+      minWidth: 550,
+      format: (val, row) => (
+        <>
+          {row['report-image'] ? (
+            <img
+              className={classes.thumbnail}
+              src={row['report-image']}
+              alt={row.title}
+            />
+          ) : null}
+          <Typography className={classes.itemTitle} variant="h6">
+            {row.title}
+          </Typography>
+          <Typography className={classes.itemDescription} variant="body2">{row.description}</Typography>
+        </>
+      ),
       align: 'left',
     },
     {
@@ -137,13 +188,17 @@ function SearchResults(props) {
         description:
           'This is a header for a column in a search results table that contains the date that items were published on.',
       }),
-      minWidth: 50,
-      align: 'left',
+      minWidth: 100,
+      apiField: 'published',
       format: (value) => {
+        if (!value) {
+          return '-';
+        }
         const d = new Date(value * 1000);
         const formatted = new Intl.DateTimeFormat().format(d).toString();
         return formatted;
       },
+      align: 'left',
     },
     {
       id: 'status',
@@ -179,9 +234,9 @@ function SearchResults(props) {
           'This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.',
       }),
       apiField: 'article-link',
-      minWidth: 100,
+      minWidth: 200,
       align: 'left',
-      format: (value) => <a href={value}>{value}</a>,
+      format: (value) => (value ? <a href={value}>{value}</a> : '-'),
     },
     {
       id: 'sent',
@@ -194,6 +249,125 @@ function SearchResults(props) {
       apiField: 'requests',
       minWidth: 100,
       align: 'left',
+    },
+    {
+      id: 'claim-content',
+      label: intl.formatMessage({
+        id: 'claim.content',
+        defaultMessage: 'Claim',
+        description:
+          'This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.',
+      }),
+      format: (val, row) => (
+        <>
+          {row['lead-image'] ? (
+            <img
+              className={classes.thumbnail}
+              src={row['lead-image']}
+              alt={row.title}
+            />
+          ) : null}
+          <Typography className={classes.itemTitle} variant="h6">
+            {row['original-claim-title']}
+          </Typography>
+          <Typography className={classes.itemDescription} variant="body2">{row['original-claim-body']}</Typography>
+        </>
+      ),
+      minWidth: 550,
+      align: 'left',
+      group: 'claim',
+    },
+    {
+      id: 'created-at',
+      label: intl.formatMessage({
+        id: 'claim.firstSeen',
+        defaultMessage: 'First seen',
+        description:
+          'This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.',
+      }),
+      apiField: 'created-at',
+      minWidth: 150,
+      format: (value) => {
+        const d = new Date(value);
+        const formatted = new Intl.DateTimeFormat().format(d).toString();
+        return formatted;
+      },
+      align: 'left',
+      group: 'claim',
+    },
+    {
+      id: 'media',
+      label: intl.formatMessage({
+        id: 'claim.media',
+        defaultMessage: 'Media',
+        description:
+          'This is a header for a column in a search results table that contains a link to the main "original source" of the claim that was reported to check. It can be a link to an image file, or to a web site.',
+      }),
+      minWidth: 100,
+      format: (val, row) => {
+        let value = '';
+        let href = '';
+        if (row['media-type'] === 'Link') {
+          href = row['original-claim-link'];
+          const url = new URL(href);
+          value = url.host;
+        } else if (row['media-type'] === 'UploadedImage') {
+          href = row['original-media'];
+          const fileName = href.match(/.+\/(.+)$/);
+          if (fileName) {
+            // match the group captured in the regex
+            [, value] = fileName;
+          }
+        }
+        return (
+          <Typography variant="body2">
+            {value ? <a href={href}>{value}</a> : '-'}
+          </Typography>
+        );
+      },
+      align: 'left',
+      group: 'claim',
+    },
+    {
+      id: 'simliar-media',
+      label: intl.formatMessage({
+        id: 'claim.similarMedia',
+        defaultMessage: 'Similar media',
+        description:
+          'This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.',
+      }),
+      apiField: 'similar-media',
+      minWidth: 150,
+      align: 'left',
+      group: 'claim',
+    },
+    {
+      id: 'claim-url',
+      label: intl.formatMessage({
+        id: 'claim.url',
+        defaultMessage: 'Claim URL',
+        description:
+          'This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.',
+      }),
+      apiField: 'check-url',
+      minWidth: 100,
+      format: (value) => <a href={value}>{value}</a>,
+      align: 'left',
+      group: 'claim',
+    },
+    {
+      id: 'original-claim-author',
+      label: intl.formatMessage({
+        id: 'claim.source',
+        defaultMessage: 'Source',
+        description:
+          'This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.',
+      }),
+      apiField: 'original-claim-author',
+      minWidth: 100,
+      format: (value) => value || 'Unknown',
+      align: 'left',
+      group: 'claim',
     },
   ];
 
@@ -241,13 +415,17 @@ function SearchResults(props) {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper elevation={0} className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
+                  classes={{
+                    root: classes.headerCellRoot,
+                    head: column.group === 'claim' ? classes.claimGroup : null,
+                  }}
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
@@ -255,7 +433,8 @@ function SearchResults(props) {
                   <TableSortLabel
                     active={orderBy === column.id}
                     direction={orderBy === column.id ? order : 'asc'}
-                    onClick={handleSortClick}
+                    onClick={orderBy === column.id ? handleSortClick : null}
+                    hideSortIcon={orderBy !== column.id}
                   >
                     {column.label}
                   </TableSortLabel>
@@ -278,42 +457,27 @@ function SearchResults(props) {
               </tr>
             ) : (
               stableSort(results.data, getComparator(order, orderBy)).map(
-                (row) => (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                (row, index) => (
+                  <TableRow
+                    className={index % 2 ? classes.evenItem : ''}
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.id}
+                  >
                     {columns.map((column) => {
-                      let result;
-                      if (column.id === 'report') {
-                        result = (
-                          <TableCell key={column.id} align={column.align}>
-                            {row['lead-image'] ? (
-                              <img
-                                className={classes.thumbnail}
-                                src={row['lead-image']}
-                                alt={row.title}
-                              />
-                            ) : null}
-                            <Typography variant="h6">{row.title}</Typography>
-                            <Typography variant="body2">
-                              {row.description}
-                            </Typography>
-                          </TableCell>
-                        );
+                      let value;
+                      if (column.apiField) {
+                        value = row[column.apiField];
                       } else {
-                        let value;
-                        if (column.apiField) {
-                          value = row[column.apiField];
-                        } else {
-                          value = row[column.id];
-                        }
-                        result = (
-                          <TableCell key={column.id} align={column.align}>
-                            {value && column.format
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
+                        value = row[column.id];
                       }
-                      return result;
+                      return (
+                        <TableCell className={column.id === 'claim-content' ? classes.leftBorder : null} key={column.id} align={column.align}>
+                          {column.format
+                            ? column.format(value, row, column)
+                            : value}
+                        </TableCell>
+                      );
                     })}
                   </TableRow>
                 ),
@@ -323,6 +487,9 @@ function SearchResults(props) {
         </Table>
       </TableContainer>
       <TablePagination
+        classes={{
+          spacer: classes.spacer,
+        }}
         rowsPerPageOptions={[2, 10, 50]}
         component="div"
         count={results.meta['record-count']}

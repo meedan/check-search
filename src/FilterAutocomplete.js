@@ -31,9 +31,29 @@ const useStyles = makeStyles((theme) => ({
 function FilterAutocomplete(props) {
   const classes = useStyles();
   const { data, setValue, value } = props;
+  const options = [{ id: -1, name: 'All', slug: 'ui-select-all' }, ...data];
 
   function handleChange(e, selectedValues) {
-    setValue(selectedValues);
+    let result = selectedValues;
+    // if the current value has only All and we are selecting a new value that is not All, remove All
+    if (
+      value.length > 0 &&
+      value.every((item) => item.id === -1) &&
+      selectedValues.some((item) => item.id !== -1)
+    ) {
+      result.splice(
+        selectedValues.findIndex((item) => item.id === -1),
+        1,
+      );
+    } else if (
+      // if the current value has NO All and we are selecting a new All, then remove other filters
+      value.length > 0 &&
+      value.every((item) => item.id !== -1) &&
+      selectedValues.some((item) => item.id === -1)
+    ) {
+      result = selectedValues.filter((item) => item.id === -1);
+    }
+    setValue(result);
   }
 
   return (
@@ -41,9 +61,10 @@ function FilterAutocomplete(props) {
       <Autocomplete
         multiple
         id="tags-outlined"
-        options={data}
+        options={options}
         ChipProps={{ deleteIcon: <Close /> }}
         getOptionLabel={(option) => option.name}
+        getOptionSelected={(option, val) => option.id === val.id}
         onChange={handleChange}
         defaultValue={[]}
         value={value}

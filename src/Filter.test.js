@@ -29,6 +29,7 @@ describe('<Filter />', () => {
         }
         value={values}
         setValue={jest.fn()}
+        isAllDefault={false}
       />,
     );
     expect(wrapper.props().value).toEqual(values);
@@ -95,6 +96,7 @@ describe('<Filter />', () => {
           />
         }
         query={query}
+        isAllDefault={false}
       />,
     );
     // Look for loading spinner
@@ -113,9 +115,11 @@ describe('<Filter />', () => {
             id="test.message"
             defaultMessage="Test"
             description="test"
+            isAllDefault={false}
           />
         }
         query={query}
+        isAllDefault={false}
       />,
     );
     // Error message was found and rendered
@@ -156,6 +160,7 @@ describe('<Filter />', () => {
           />
         }
         query={query}
+        isAllDefault
       />,
     );
 
@@ -166,9 +171,9 @@ describe('<Filter />', () => {
     // click the popup to show options
     wrapper.find('button.MuiAutocomplete-popupIndicator').simulate('click');
     expect(wrapper.find('div.MuiAutocomplete-popper').length).toEqual(1);
-    // first option is labeled "Meedan"
+    // first option is labeled "All"
     expect(wrapper.find('.MuiAutocomplete-option').first().text()).toEqual(
-      'Meedan',
+      'All',
     );
   });
 });

@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import {
   makeStyles,
   Button,
-  Toolbar,
   Typography,
   TextField,
   Grid,
@@ -23,12 +22,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(1),
   },
-  heading: {
-    maxWidth: '900px',
-  },
   content: {
     padding: theme.spacing(3),
-    width: '100%',
+    maxWidth: `calc(100% - ${theme.drawerWidth}px)`,
+    width: `calc(100% - ${theme.drawerWidth}px)`,
   },
   input: {
     display: 'none',
@@ -55,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '0.17em',
   },
+  searchInput: {
+    marginBottom: theme.spacing(2),
+  },
   results: {
     margin: theme.spacing(2),
   },
@@ -65,7 +65,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
   const classes = useStyles();
-  const { similarity, workspaces, mediaTypes, archived, published, fuzzy } = props;
+  const {
+    similarity,
+    workspaces,
+    mediaTypes,
+    archived,
+    published,
+    fuzzy,
+  } = props;
   const [results, setResults] = useState({
     data: [],
     meta: { 'record-count': 0 },
@@ -81,9 +88,14 @@ function Search(props) {
   async function getData() {
     let data;
     const similarity_threshold = similarity / 100;
-    const similarity_organization_ids = workspaces
-      .map((item) => item.id)
-      .toString();
+
+    // id of -1 is "all organizations", only filter by orgs if all is NOT selected
+    let similarity_organization_ids = '';
+    if (workspaces.every((workspace) => workspace.id !== -1)) {
+      similarity_organization_ids = workspaces
+        .map((item) => item.id)
+        .toString();
+    }
     const media_type = mediaTypes
       .filter((item) => item.isChecked)
       .map((item) => item.value);
@@ -91,16 +103,21 @@ function Search(props) {
     const size = rowsPerPage;
 
     const archivedAllChecked =
-      archived.every((item) => item.isChecked) || archived.length === 0;
+      archived.every((item) => item.isChecked);
     const archivedParam = archivedAllChecked
       ? ''
-      : archived.filter((item) => item.isChecked).map((item) => item.value)[0];
+      : archived
+          .filter((item) => item.isChecked)
+          .map((item) => item.value)[0];
 
     const publishedAllChecked =
-      published.every((item) => item.isChecked) || published.length === 0;
+      published.every((item) => item.isChecked) || published.every((item) => !item.isChecked);
     const publishedParam = publishedAllChecked
       ? ''
-      : published.filter((item) => item.isChecked).map((item) => item.value)[0];
+      : published
+          .filter((item) => item.isChecked)
+          .map((item) => item.value)
+          .toString();
 
     if (imgData.data.length > 0) {
       // This is an image, so we do a multipart/form (non JSONAPI-compliant)
@@ -139,22 +156,28 @@ function Search(props) {
       setIsLoading(false);
     } else {
       setIsLoading(true);
+      const filter = {
+        similar_to_text: confirmedText,
+        similarity_threshold,
+        similarity_organization_ids,
+        media_type,
+        fuzzy,
+      };
+      if (!publishedAllChecked) {
+        filter.report_state = publishedParam;
+      }
+      if (!archivedAllChecked) {
+        filter.archived = archivedParam ? 1 : 0;
+      }
+      const page = {
+        size,
+        number,
+      };
       data = await client.fetch([
         'reports',
         {
-          filter: {
-            similar_to_text: confirmedText,
-            similarity_threshold,
-            similarity_organization_ids,
-            media_type,
-            archived: archivedParam ? 1 : 0,
-            report_state: publishedParam,
-            fuzzy,
-          },
-          page: {
-            size,
-            number,
-          },
+          filter,
+          page,
         },
       ]);
       setIsLoading(false);
@@ -189,11 +212,10 @@ function Search(props) {
 
   return (
     <main className={classes.content}>
-      <Toolbar />
       <form onSubmit={handleSubmit}>
         <Grid
-          className={classes.heading}
           container
+          className={classes.searchInput}
           justify="center"
           align="center"
           alignItems="center"
@@ -272,8 +294,9 @@ function SearchInput(props) {
         </Box>
         <Box flexGrow={1}>
           <TextField
-            className={classes.searchField}
+            className={classes.searchTextField}
             type="search"
+            size="small"
             id="search"
             name="search"
             label={intl.formatMessage({

@@ -29,9 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Filter(props) {
   const classes = useStyles();
-  const { query, header, setValue, value, isOpenDefault } = props;
-  const [open, setOpen] = React.useState(isOpenDefault !== undefined ? isOpenDefault : true);
-  const [selectAllChecked, setSelectAllChecked] = React.useState(false);
+  const { query, header, setValue, value, isOpenDefault, isAllDefault } = props;
+  const [open, setOpen] = React.useState(
+    isOpenDefault !== undefined ? isOpenDefault : true,
+  );
+  const [selectAllChecked, setSelectAllChecked] = React.useState(isAllDefault);
   let items = [];
 
   function handleClick() {
@@ -78,6 +80,7 @@ function Filter(props) {
             tabIndex={-1}
             disableRipple
             onChange={handleSelectAll}
+            color="primary"
           />
         </ListItemIcon>
         <ListItemText id={1} primary="All" />
@@ -94,6 +97,7 @@ function Filter(props) {
               tabIndex={-1}
               disableRipple
               onChange={handleCheck}
+              color="primary"
             />
           </ListItemIcon>
           <ListItemText id={1} primary={item.label} />
@@ -154,10 +158,14 @@ function Filter(props) {
 
 Filter.defaultProps = {
   query: undefined,
+  isAllDefault: true,
+  isOpenDefault: true,
 };
 
 Filter.propTypes = {
   query: PropTypes.object,
+  isAllDefault: PropTypes.bool,
+  isOpenDefault: PropTypes.bool,
 };
 
 export default Filter;
