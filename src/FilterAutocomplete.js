@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, makeStyles } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import { useIntl } from 'react-intl';
 import { Close } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 function FilterAutocomplete(props) {
   const classes = useStyles();
   const { data, setValue, value } = props;
+  const intl = useIntl();
   const options = [{ id: -1, name: 'All', slug: 'ui-select-all' }, ...data];
 
   function handleChange(e, selectedValues) {
@@ -73,7 +75,12 @@ function FilterAutocomplete(props) {
           <TextField
             {...params}
             variant="outlined"
-            label="Select specific publishers"
+            label={intl.formatMessage({
+              id: 'select.publishers',
+              defaultMessage: 'Select publishers',
+              description:
+                'This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.',
+            })}
           />
         )}
       />

@@ -20,10 +20,13 @@ import SearchResults from './SearchResults';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(3),
+    marginRight: theme.spacing(6),
+    marginBottom: theme.spacing(3),
+    marginLeft: theme.spacing(3),
   },
   content: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     maxWidth: `calc(100% - ${theme.drawerWidth}px)`,
     width: `calc(100% - ${theme.drawerWidth}px)`,
   },
@@ -51,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
   searchIcon: {
     position: 'relative',
     top: '0.17em',
-  },
-  searchInput: {
-    marginBottom: theme.spacing(2),
   },
   results: {
     margin: theme.spacing(2),
@@ -102,16 +102,14 @@ function Search(props) {
     const number = pageNumber + 1;
     const size = rowsPerPage;
 
-    const archivedAllChecked =
-      archived.every((item) => item.isChecked);
+    const archivedAllChecked = archived.every((item) => item.isChecked);
     const archivedParam = archivedAllChecked
       ? ''
-      : archived
-          .filter((item) => item.isChecked)
-          .map((item) => item.value)[0];
+      : archived.filter((item) => item.isChecked).map((item) => item.value)[0];
 
     const publishedAllChecked =
-      published.every((item) => item.isChecked) || published.every((item) => !item.isChecked);
+      published.every((item) => item.isChecked) ||
+      published.every((item) => !item.isChecked);
     const publishedParam = publishedAllChecked
       ? ''
       : published
@@ -213,13 +211,7 @@ function Search(props) {
   return (
     <main className={classes.content}>
       <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          className={classes.searchInput}
-          justify="center"
-          align="center"
-          alignItems="center"
-        >
+        <Grid container justify="center" align="center" alignItems="center">
           <SearchInput {...{ setConfirmedText, imgData, setImgData }} />
         </Grid>
         <SearchResults

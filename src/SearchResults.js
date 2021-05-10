@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     width: '100%',
+    borderTop: 'none',
+    borderLeft: 'none',
   },
   container: {
     height: 700,
@@ -175,7 +177,9 @@ function SearchResults(props) {
           <Typography className={classes.itemTitle} variant="h6">
             {row.title}
           </Typography>
-          <Typography className={classes.itemDescription} variant="body2">{row.description}</Typography>
+          <Typography className={classes.itemDescription} variant="body2">
+            {row.description}
+          </Typography>
         </>
       ),
       align: 'left',
@@ -270,7 +274,9 @@ function SearchResults(props) {
           <Typography className={classes.itemTitle} variant="h6">
             {row['original-claim-title']}
           </Typography>
-          <Typography className={classes.itemDescription} variant="body2">{row['original-claim-body']}</Typography>
+          <Typography className={classes.itemDescription} variant="body2">
+            {row['original-claim-body']}
+          </Typography>
         </>
       ),
       minWidth: 550,
@@ -415,7 +421,7 @@ function SearchResults(props) {
   };
 
   return (
-    <Paper elevation={0} className={classes.root}>
+    <Paper elevation={0} variant="outlined" className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -472,7 +478,15 @@ function SearchResults(props) {
                         value = row[column.id];
                       }
                       return (
-                        <TableCell className={column.id === 'claim-content' ? classes.leftBorder : null} key={column.id} align={column.align}>
+                        <TableCell
+                          className={
+                            column.id === 'claim-content'
+                              ? classes.leftBorder
+                              : null
+                          }
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format
                             ? column.format(value, row, column)
                             : value}

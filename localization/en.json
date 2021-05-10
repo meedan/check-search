@@ -1,6 +1,6 @@
 {
   "filters.organizations": {
-    "string": "Organizations"
+    "string": "Publishers"
   },
   "filters.type": {
     "string": "Content Type"

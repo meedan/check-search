@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   makeStyles,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -132,12 +131,7 @@ function Filter(props) {
       );
     }
 
-    return (
-      <>
-        <Divider />
-        {element}
-      </>
-    );
+    return <>{element}</>;
   }
 
   return (
