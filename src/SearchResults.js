@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     lineHeight: 1.43,
     letterSpacing: '0.01071em',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
+    overflow: 'hidden',
   },
   itemDescription: {
     display: '-webkit-box',
