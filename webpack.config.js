@@ -60,7 +60,10 @@ module.exports = {
       template: 'src/index.html',
     }),
     new CopyPlugin({
-      patterns: [{ from: './config.js', to: 'config.js' }],
+      patterns: [
+        { from: './config.js', to: 'config.js' },
+        { from: './src/check.ico', to: 'favicon.ico' },
+      ],
     }),
   ],
 };
