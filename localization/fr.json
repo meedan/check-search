@@ -1,11 +1,35 @@
 {
+  "claim.content": {
+    "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
+    "string": "Déclaration"
+  },
+  "claim.firstSeen": {
+    "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
+    "string": "Vu pour la première fois"
+  },
+  "claim.media": {
+    "developer_comment": "This is a header for a column in a search results table that contains a link to the main \"original source\" of the claim that was reported to check. It can be a link to an image file, or to a web site.",
+    "string": "Média"
+  },
+  "claim.similarMedia": {
+    "developer_comment": "This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.",
+    "string": "Médias semblables"
+  },
+  "claim.source": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Source"
+  },
+  "claim.url": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Claim URL"
+  },
   "filters.archived": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
     "string": "Corbeille"
   },
   "filters.organizations": {
     "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
-    "string": "Publishers"
+    "string": "Éditeurs"
   },
   "filters.published": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not.",
@@ -13,51 +37,51 @@
   },
   "filters.type": {
     "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
-    "string": "Content Type"
-  },
-  "homepage.title": {
-    "developer_comment": "This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another.",
-    "string": "Similarity Search Prototype"
+    "string": "Type de contenu"
   },
   "search.action": {
     "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
-    "string": "Search"
+    "string": "Chercher"
   },
   "search.genericError": {
     "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
-    "string": "Something went wrong with your search."
+    "string": "Un problème est survenu lors de votre recherche."
   },
   "search.image": {
     "developer_comment": "This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt.",
-    "string": "Add image"
+    "string": "Ajouter une image"
   },
   "search.noResults": {
     "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
-    "string": "No results found."
+    "string": "Aucun résultat n'a été trouvé."
   },
   "search.title": {
     "developer_comment": "This is the title of the application.",
     "string": "Check"
   },
+  "select.publishers": {
+    "developer_comment": "This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.",
+    "string": "Select publishers"
+  },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
-    "string": "Filters"
+    "string": "Filtres"
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
-    "string": "Similarity"
+    "string": "Similitude"
   },
   "sort.published": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
     "string": "Publié"
   },
   "sort.report": {
-    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports made and claims filed in Check.",
-    "string": "Reports & Claims"
+    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports created by Check analysts.",
+    "string": "Rapport"
   },
   "sort.score": {
     "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
-    "string": "Score"
+    "string": "Résultat"
   },
   "sort.sent": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",

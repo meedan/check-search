@@ -1,7 +1,31 @@
 {
+  "claim.content": {
+    "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
+    "string": "Afirmación"
+  },
+  "claim.firstSeen": {
+    "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
+    "string": "Visto por primera vez"
+  },
+  "claim.media": {
+    "developer_comment": "This is a header for a column in a search results table that contains a link to the main \"original source\" of the claim that was reported to check. It can be a link to an image file, or to a web site.",
+    "string": "Medio"
+  },
+  "claim.similarMedia": {
+    "developer_comment": "This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.",
+    "string": "Medios similares"
+  },
+  "claim.source": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Fuente"
+  },
+  "claim.url": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Claim URL"
+  },
   "filters.archived": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
-    "string": "Papelera"
+    "string": "Trash"
   },
   "filters.organizations": {
     "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
@@ -9,15 +33,11 @@
   },
   "filters.published": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not.",
-    "string": "Publicado"
+    "string": "Published"
   },
   "filters.type": {
     "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
     "string": "Tipo de contenido"
-  },
-  "homepage.title": {
-    "developer_comment": "This title field is not a product name and can be translated for meaning. It should indicate that it is a basic tool for testing the results of our new search methods. These methods return results based on how similar items are to one another.",
-    "string": "Protocolo de Búsqueda de Similaridad"
   },
   "search.action": {
     "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
@@ -33,11 +53,15 @@
   },
   "search.noResults": {
     "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
-    "string": "No se encontraron resultados."
+    "string": "No results found."
   },
   "search.title": {
     "developer_comment": "This is the title of the application.",
     "string": "Check"
+  },
+  "select.publishers": {
+    "developer_comment": "This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.",
+    "string": "Select publishers"
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
@@ -49,27 +73,27 @@
   },
   "sort.published": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
-    "string": "Publicado"
+    "string": "Published"
   },
   "sort.report": {
-    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports made and claims filed in Check.",
-    "string": "Informes & Reclamaciones"
+    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports created by Check analysts.",
+    "string": "Informe"
   },
   "sort.score": {
     "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
-    "string": "Puntuación"
+    "string": "Score"
   },
   "sort.sent": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",
-    "string": "Enviado"
+    "string": "Sent"
   },
   "sort.status": {
     "developer_comment": "This is a header for a column in a search results table that contains a field saying whether a fact-checked claim or report was deemed false or true.",
-    "string": "Estado"
+    "string": "Status"
   },
   "sort.url": {
     "developer_comment": "This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.",
-    "string": "Artículo publicado"
+    "string": "Published article"
   },
   "test.message": {
     "developer_comment": "test",
