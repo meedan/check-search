@@ -62,7 +62,7 @@ build_live:
     - docker build  -f Dockerfile --build-arg INST_ARGS=--production --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -t "$ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"
   only:
-    - master
+    - main
 
 deploy_live:
   image: python:3-alpine
@@ -83,4 +83,4 @@ deploy_live:
     - ecs deploy ecs-live  live-check-search --image live-check-search $ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA --exclusive-env -e live-check-search DEPLOY_ENV live -e live-check-search AWS_DEFAULT_REGION $AWS_DEFAULT_REGION --timeout 1800
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/search:$CI_COMMIT_SHA"
   only:
-    - master
+    - main
