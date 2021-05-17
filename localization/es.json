@@ -1,0 +1,102 @@
+{
+  "claim.content": {
+    "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
+    "string": "Afirmación"
+  },
+  "claim.firstSeen": {
+    "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
+    "string": "Visto por primera vez"
+  },
+  "claim.media": {
+    "developer_comment": "This is a header for a column in a search results table that contains a link to the main \"original source\" of the claim that was reported to check. It can be a link to an image file, or to a web site.",
+    "string": "Medio"
+  },
+  "claim.similarMedia": {
+    "developer_comment": "This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.",
+    "string": "Medios similares"
+  },
+  "claim.source": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Fuente"
+  },
+  "claim.url": {
+    "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
+    "string": "Claim URL"
+  },
+  "filters.archived": {
+    "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
+    "string": "Trash"
+  },
+  "filters.organizations": {
+    "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
+    "string": "Editores(as)"
+  },
+  "filters.published": {
+    "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not.",
+    "string": "Published"
+  },
+  "filters.type": {
+    "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
+    "string": "Tipo de contenido"
+  },
+  "search.action": {
+    "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
+    "string": "Buscar "
+  },
+  "search.genericError": {
+    "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
+    "string": "Algo salió mal con su búsqueda."
+  },
+  "search.image": {
+    "developer_comment": "This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt.",
+    "string": "Add image"
+  },
+  "search.noResults": {
+    "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
+    "string": "No results found."
+  },
+  "search.title": {
+    "developer_comment": "This is the title of the application.",
+    "string": "Check"
+  },
+  "select.publishers": {
+    "developer_comment": "This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.",
+    "string": "Select publishers"
+  },
+  "sidebar.filters": {
+    "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
+    "string": "Filtros"
+  },
+  "sidebar.similarity": {
+    "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
+    "string": "Similaridad"
+  },
+  "sort.published": {
+    "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
+    "string": "Published"
+  },
+  "sort.report": {
+    "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports created by Check analysts.",
+    "string": "Informe"
+  },
+  "sort.score": {
+    "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
+    "string": "Score"
+  },
+  "sort.sent": {
+    "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",
+    "string": "Sent"
+  },
+  "sort.status": {
+    "developer_comment": "This is a header for a column in a search results table that contains a field saying whether a fact-checked claim or report was deemed false or true.",
+    "string": "Status"
+  },
+  "sort.url": {
+    "developer_comment": "This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.",
+    "string": "Published article"
+  },
+  "test.message": {
+    "developer_comment": "test",
+    "string": "Test"
+  }
+}
