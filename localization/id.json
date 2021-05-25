@@ -13,7 +13,7 @@
   },
   "claim.similarMedia": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.",
-    "string": "Similar media"
+    "string": "Media serupa"
   },
   "claim.source": {
     "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",

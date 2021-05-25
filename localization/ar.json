@@ -1,7 +1,7 @@
 {
   "claim.content": {
     "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
-    "string": "إدعاء"
+    "string": "ادعاء"
   },
   "claim.firstSeen": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
