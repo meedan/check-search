@@ -1,11 +1,11 @@
 {
   "claim.content": {
     "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
-    "string": "Claim"
+    "string": "Klaim"
   },
   "claim.firstSeen": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
-    "string": "First seen"
+    "string": "Pertama dilihat"
   },
   "claim.media": {
     "developer_comment": "This is a header for a column in a search results table that contains a link to the main \"original source\" of the claim that was reported to check. It can be a link to an image file, or to a web site.",
@@ -21,39 +21,39 @@
   },
   "claim.url": {
     "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
-    "string": "Claim URL"
+    "string": "Klaim URL"
   },
   "filters.archived": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
-    "string": "Trash"
+    "string": "Tong Sampah"
   },
   "filters.organizations": {
     "developer_comment": "This is a heading that will be immediately followed by a list of known publishing organizations that the user can choose from.",
-    "string": "Publishers"
+    "string": "Penerbit"
   },
   "filters.published": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been published or not.",
-    "string": "Published"
+    "string": "Diterbitkan"
   },
   "filters.type": {
     "developer_comment": "This is a heading that will be immediately followed by a list of types of content (image, text, video) that the user can choose from.",
-    "string": "Content Type"
+    "string": "Tipe Konten"
   },
   "search.action": {
     "developer_comment": "This is a verb that indicates the user is going to search a database for records based on a query they typed.",
-    "string": "Search"
+    "string": "Cari"
   },
   "search.genericError": {
     "developer_comment": "This message appears when we don't know why an error has occurred during a search. Otherwise we show the real error.",
-    "string": "Something went wrong with your search."
+    "string": "Ada yang salah dengan pencarian Anda."
   },
   "search.image": {
     "developer_comment": "This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt.",
-    "string": "Add image"
+    "string": "Tambahkan gambar"
   },
   "search.noResults": {
     "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
-    "string": "No results found."
+    "string": "Tidak ada hasil ditemukan."
   },
   "search.title": {
     "developer_comment": "This is the title of the application.",
@@ -61,31 +61,31 @@
   },
   "select.publishers": {
     "developer_comment": "This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.",
-    "string": "Select publishers"
+    "string": "Pilih penerbit"
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
-    "string": "Filters"
+    "string": "Saring"
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
-    "string": "Similarity"
+    "string": "Kemiripan"
   },
   "sort.published": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
-    "string": "Published"
+    "string": "Diterbitkan"
   },
   "sort.report": {
     "developer_comment": "This is a header for a column in a search results table, referring to the fact that this column contains the main content of reports created by Check analysts.",
-    "string": "Report"
+    "string": "Laporan"
   },
   "sort.score": {
     "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
-    "string": "Score"
+    "string": "Skor"
   },
   "sort.sent": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",
-    "string": "Sent"
+    "string": "Terkirim"
   },
   "sort.status": {
     "developer_comment": "This is a header for a column in a search results table that contains a field saying whether a fact-checked claim or report was deemed false or true.",
@@ -93,10 +93,10 @@
   },
   "sort.url": {
     "developer_comment": "This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.",
-    "string": "Published article"
+    "string": "Artikel terbit"
   },
   "test.message": {
     "developer_comment": "test",
-    "string": "Test"
+    "string": "Tes"
   }
 }

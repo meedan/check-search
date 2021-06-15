@@ -21,7 +21,7 @@
   },
   "claim.url": {
     "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
-    "string": "Claim URL"
+    "string": "عنوان الادعاء"
   },
   "filters.archived": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
@@ -61,7 +61,7 @@
   },
   "select.publishers": {
     "developer_comment": "This is a prompt in a text box that lets the user know they can select one or more specific publishers from a popop list.",
-    "string": "Select publishers"
+    "string": "اختيار الناشرين"
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
