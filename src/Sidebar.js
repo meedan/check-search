@@ -115,7 +115,7 @@ function Sidebar(props) {
 
   const workspacesQuery = useQuery([
     'workspaces',
-    { filter: { is_tipline_installed: 1 } },
+    { filter: { is_similarity_feature_enabled: 1 } },
   ]);
 
   return (
