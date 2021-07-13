@@ -81,7 +81,7 @@
   },
   "sort.score": {
     "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
-    "string": "Résultat"
+    "string": "Note"
   },
   "sort.sent": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",

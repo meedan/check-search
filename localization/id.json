@@ -49,7 +49,7 @@
   },
   "search.image": {
     "developer_comment": "This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt.",
-    "string": "Tambahkan gambar"
+    "string": "Tambah gambar"
   },
   "search.noResults": {
     "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
@@ -65,7 +65,7 @@
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
-    "string": "Saring"
+    "string": "Saringan"
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
