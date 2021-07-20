@@ -135,7 +135,6 @@ function Search(props) {
       // This is an image, so we do a multipart/form (non JSONAPI-compliant)
       // request
       const url = `${client.config.url}/reports`;
-      console.log('~~~~~~~~~',url);
       const formData = new FormData();
       let filterProperty = '';
       if (imgData.type.match(/^video\//)) {
