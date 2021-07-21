@@ -14,6 +14,7 @@ import {
   Search as SearchIcon,
   Cancel as CancelIcon,
   FiberManualRecord as MaskIcon,
+  VolumeUp as AudioIcon,
 } from '@material-ui/icons';
 import { useClient } from 'jsonapi-react';
 import SearchResults from './SearchResults';
@@ -41,6 +42,14 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '50px',
     '& img': {
       maxWidth: '50px',
+    },
+    '& video': {
+      maxWidth: '50px',
+    },
+    '& #icon': {
+      position: 'relative',
+      marginTop: theme.spacing(1),
+      marginLeft: theme.spacing(1),
     },
     '& svg,button': {
       position: 'absolute',
@@ -81,7 +90,12 @@ function Search(props) {
   const [confirmedText, setConfirmedText] = useState('');
   const [error, setError] = useState({ hasError: false, message: '' });
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [imgData, setImgData] = useState({ data: '', name: '' });
+  const [imgData, setImgData] = useState({
+    data: '',
+    name: '',
+    file: {},
+    type: '',
+  });
   const [isLoading, setIsLoading] = useState(false);
   const client = useClient();
 
@@ -122,7 +136,15 @@ function Search(props) {
       // request
       const url = `${client.config.url}/reports`;
       const formData = new FormData();
-      formData.append('filter[similar_to_image]', imgData.file);
+      let filterProperty = '';
+      if (imgData.type.match(/^video\//)) {
+        filterProperty = 'similar_to_video';
+      } else if (imgData.type.match(/^image\//)) {
+        filterProperty = 'similar_to_image';
+      } else if (imgData.type.match(/^audio\//)) {
+        filterProperty = 'similar_to_audio';
+      }
+      formData.append(`filter[${filterProperty}]`, imgData.file);
       formData.append('filter[similarity_threshold]', similarity_threshold);
       formData.append(
         'filter[similarity_organization_ids]',
@@ -243,7 +265,12 @@ function SearchInput(props) {
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      setImgData({ data: reader.result, name: file.name, file });
+      setImgData({
+        data: reader.result,
+        name: file.name,
+        file,
+        type: file.type,
+      });
       setSearchText('');
     };
   }
@@ -253,13 +280,25 @@ function SearchInput(props) {
   }
 
   function ImagePreview() {
+    function Thumbnail() {
+      let output;
+      if (imgData.type.match(/^video\//)) {
+        output = <video src={imgData.data} alt={imgData.name} />;
+      } else if (imgData.type.match(/^image\//)) {
+        output = <img src={imgData.data} alt={imgData.name} />;
+      } else if (imgData.type.match(/^audio\//)) {
+        output = <AudioIcon id="icon" fontSize="large" htmlColor="black" />;
+      }
+      return output;
+    }
+
     return (
       <Box className={classes.image}>
+        <Thumbnail />
         <MaskIcon fontSize="small" htmlColor="white" />
         <IconButton onClick={handleImageDismiss}>
           <CancelIcon fontSize="small" htmlColor="black" />
         </IconButton>
-        <img src={imgData.data} alt={imgData.name} />
       </Box>
     );
   }
@@ -320,7 +359,7 @@ function SearchInput(props) {
             className={classes.input}
             id="media-upload"
             type="file"
-            accept="image/*"
+            accept="image/*,video/*,audio/*"
             onChange={handleUpload}
           />
           <Button
@@ -330,9 +369,9 @@ function SearchInput(props) {
             component="span"
           >
             <FormattedMessage
-              id="search.image"
-              defaultMessage="Add image"
-              description="This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt."
+              id="search.file"
+              defaultMessage="Search with file"
+              description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
             />
           </Button>
         </label>

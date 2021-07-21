@@ -101,6 +101,16 @@ const mediaTypeOptions = [
     value: 'UploadedImage',
     isChecked: true,
   },
+  {
+    label: 'Video',
+    value: 'UploadedVideo',
+    isChecked: true,
+  },
+  {
+    label: 'Audio',
+    value: 'UploadedAudio',
+    isChecked: true,
+  },
 ];
 
 const archivedOptions = [

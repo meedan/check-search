@@ -1,7 +1,7 @@
 {
   "claim.content": {
     "developer_comment": "This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.",
-    "string": "Déclaration"
+    "string": "Affirmation"
   },
   "claim.firstSeen": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
@@ -21,7 +21,7 @@
   },
   "claim.url": {
     "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
-    "string": "URL de la déclaration"
+    "string": "URL de l’affirmation"
   },
   "filters.archived": {
     "developer_comment": "This is a heading that will be immediately followed by checkboxes that let you filter search items by whether they have been moved to the trash.",
@@ -81,7 +81,7 @@
   },
   "sort.score": {
     "developer_comment": "This is a header for a column in a search results table that contains a numerical score telling the user how similar a particular search result is to their query.",
-    "string": "Résultat"
+    "string": "Note"
   },
   "sort.sent": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of times this item was sent on social media.",

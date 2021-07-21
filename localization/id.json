@@ -5,7 +5,7 @@
   },
   "claim.firstSeen": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.",
-    "string": "Pertama dilihat"
+    "string": "Pertama kali dilihat"
   },
   "claim.media": {
     "developer_comment": "This is a header for a column in a search results table that contains a link to the main \"original source\" of the claim that was reported to check. It can be a link to an image file, or to a web site.",
@@ -13,7 +13,7 @@
   },
   "claim.similarMedia": {
     "developer_comment": "This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.",
-    "string": "Media serupa"
+    "string": "Media yang mirip"
   },
   "claim.source": {
     "developer_comment": "This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.",
@@ -49,11 +49,11 @@
   },
   "search.image": {
     "developer_comment": "This is a label on a button that the user presses in order to upload an image file that will then be searched for. This action opens a file picker prompt.",
-    "string": "Tambahkan gambar"
+    "string": "Tambah gambar"
   },
   "search.noResults": {
     "developer_comment": "A message that appears when a user searches for similar items, but we could not find any results.",
-    "string": "Tidak ada hasil ditemukan."
+    "string": "Tidak ada hasil yang ditemukan."
   },
   "search.title": {
     "developer_comment": "This is the title of the application.",
@@ -65,7 +65,7 @@
   },
   "sidebar.filters": {
     "developer_comment": "A header field for a list of different filters. A plural noun, not an imperative verb.",
-    "string": "Saring"
+    "string": "Saringan"
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
@@ -93,7 +93,7 @@
   },
   "sort.url": {
     "developer_comment": "This is a header for a column in a search results table that contains a URL as a hyperlink the user can click on to view the original article the claim is about.",
-    "string": "Artikel terbit"
+    "string": "Artikel yang diterbitkan"
   },
   "test.message": {
     "developer_comment": "test",

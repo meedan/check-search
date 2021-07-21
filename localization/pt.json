@@ -69,7 +69,7 @@
   },
   "sidebar.similarity": {
     "developer_comment": "This is a section header, letting the user know that the options inside relate to making their search results more or less similar to their query.",
-    "string": "Similarity"
+    "string": "Semelhança"
   },
   "sort.published": {
     "developer_comment": "This is a header for a column in a search results table that contains the date that items were published on.",
