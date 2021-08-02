@@ -132,10 +132,6 @@ function SearchResultsEmbed(props) {
   const {
     results,
     error,
-    rowsPerPage,
-    setRowsPerPage,
-    pageNumber,
-    setPageNumber,
     isLoading,
   } = props;
 
@@ -378,15 +374,6 @@ function SearchResultsEmbed(props) {
       group: 'claim',
     },
   ];
-
-  const handleChangePage = (event, newPage) => {
-    setPageNumber(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPageNumber(0);
-  };
 
   // basic numerical comparator; won't work for strings and dates
   // unless converted to numbers
