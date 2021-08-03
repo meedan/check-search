@@ -129,12 +129,12 @@ const publishedOptions = [
   {
     label: 'Not published',
     value: 'unpublished',
-    isChecked: true,
+    isChecked: false,
   },
   {
     label: 'Paused',
     value: 'paused',
-    isChecked: true,
+    isChecked: false,
   },
   {
     label: 'Published',
@@ -150,6 +150,9 @@ function EmbedApp() {
     { id: -1, name: 'All', slug: 'ui-select-all' },
   ];
   const fuzzy = false;
+  const mediaTypes = mediaTypeOptions;
+  const archived = archivedOptions;
+  const published = publishedOptions;
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -178,9 +181,9 @@ function EmbedApp() {
                 {...{
                   similarity,
                   workspaces,
-                  mediaTypeOptions,
-                  archivedOptions,
-                  publishedOptions,
+                  mediaTypes,
+                  archived,
+                  published,
                   fuzzy,
                 }}
               />
