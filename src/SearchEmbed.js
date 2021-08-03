@@ -92,7 +92,7 @@ function Search(props) {
   const [pageNumber, setPageNumber] = useState(0);
   const [confirmedText, setConfirmedText] = useState('');
   const [error, setError] = useState({ hasError: false, message: '' });
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [imgData, setImgData] = useState({
     data: '',
     name: '',
