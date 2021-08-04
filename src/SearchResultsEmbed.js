@@ -183,26 +183,6 @@ function SearchResultsEmbed(props) {
       align: 'left',
     },
     {
-      id: 'published',
-      label: intl.formatMessage({
-        id: 'sort.published',
-        defaultMessage: 'Published',
-        description:
-          'This is a header for a column in a search results table that contains the date that items were published on.',
-      }),
-      minWidth: 100,
-      apiField: 'published',
-      format: (value) => {
-        if (!value) {
-          return '-';
-        }
-        const d = new Date(value * 1000);
-        const formatted = new Intl.DateTimeFormat().format(d).toString();
-        return formatted;
-      },
-      align: 'left',
-    },
-    {
       id: 'status',
       label: intl.formatMessage({
         id: 'sort.status',
@@ -225,7 +205,7 @@ function SearchResultsEmbed(props) {
       apiField: 'article-link',
       minWidth: 200,
       align: 'left',
-      format: (value) => (value ? <a href={value}>{value}</a> : '-'),
+      format: (value) => (value ? <a href={value} target="_blank">{value}</a> : '-'),
     },
     {
       id: 'sent',

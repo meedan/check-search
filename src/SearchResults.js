@@ -194,18 +194,10 @@ function SearchResults(props) {
         id: 'sort.published',
         defaultMessage: 'Published',
         description:
-          'This is a header for a column in a search results table that contains the date that items were published on.',
+          'This is a header for a column in a search results table that contains the status of whether an item is published or not.',
       }),
       minWidth: 100,
-      apiField: 'published',
-      format: (value) => {
-        if (!value) {
-          return '-';
-        }
-        const d = new Date(value * 1000);
-        const formatted = new Intl.DateTimeFormat().format(d).toString();
-        return formatted;
-      },
+      apiField: 'report-status',
       align: 'left',
     },
     {
@@ -244,7 +236,7 @@ function SearchResults(props) {
       apiField: 'article-link',
       minWidth: 200,
       align: 'left',
-      format: (value) => (value ? <a href={value}>{value}</a> : '-'),
+      format: (value) => (value ? <a href={value} target="_blank">{value}</a> : '-'),
     },
     {
       id: 'sent',
@@ -331,7 +323,7 @@ function SearchResults(props) {
         }
         return (
           <Typography variant="body2">
-            {value ? <a href={href}>{value}</a> : '-'}
+            {value ? <a href={href} target="_blank">{value}</a> : '-'}
           </Typography>
         );
       },
@@ -361,7 +353,7 @@ function SearchResults(props) {
       }),
       apiField: 'check-url',
       minWidth: 100,
-      format: (value) => <a href={value}>{value}</a>,
+      format: (value) => <a href={value} target="_blank">{value}</a>,
       align: 'left',
       group: 'claim',
     },
