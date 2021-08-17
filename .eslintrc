@@ -27,6 +27,7 @@
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
         "react/jsx-props-no-spreading": "off",
+        "react/jsx-no-target-blank": "off",
 
         // TODO Fix a11y issues
         "jsx-a11y/no-static-element-interactions": "off",
