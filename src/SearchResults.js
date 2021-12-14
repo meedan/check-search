@@ -161,6 +161,45 @@ function SearchResults(props) {
 
   const columns = [
     {
+      id: 'claim-content',
+      label: intl.formatMessage({
+        id: 'claim.content',
+        defaultMessage: 'Claim',
+        description:
+          'This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.',
+      }),
+      format: (val, row) => (
+        <>
+          {row['lead-image'] ? (
+            <img
+              className={classes.thumbnail}
+              src={row['lead-image']}
+              alt={row.title}
+            />
+          ) : null}
+          {
+            row['original-claim-title'] === row['original-claim-body'] ? (
+              <Typography className={classes.itemDescription} variant="body2">
+                {row['original-claim-body']}
+              </Typography>
+            ) : (
+              <>
+                <Typography className={classes.itemTitle} variant="h6">
+                  {row['original-claim-title']}
+                </Typography>
+                <Typography className={classes.itemDescription} variant="body2">
+                  {row['original-claim-body']}
+                </Typography>
+              </>
+            )
+          }
+        </>
+      ),
+      minWidth: 550,
+      align: 'left',
+      group: 'claim',
+    },
+    {
       id: 'report',
       label: intl.formatMessage({
         id: 'sort.report',
@@ -237,139 +276,6 @@ function SearchResults(props) {
       minWidth: 200,
       align: 'left',
       format: (value) => (value ? <a href={value} target="_blank">{value}</a> : '-'),
-    },
-    {
-      id: 'sent',
-      label: intl.formatMessage({
-        id: 'sort.sent',
-        defaultMessage: 'Sent',
-        description:
-          'This is a header for a column in a search results table that contains the number of times this item was sent on social media.',
-      }),
-      apiField: 'requests',
-      minWidth: 100,
-      align: 'left',
-    },
-    {
-      id: 'claim-content',
-      label: intl.formatMessage({
-        id: 'claim.content',
-        defaultMessage: 'Claim',
-        description:
-          'This is a header for a column in a search results table that contains the content of the original claim that was reported to Check.',
-      }),
-      format: (val, row) => (
-        <>
-          {row['lead-image'] ? (
-            <img
-              className={classes.thumbnail}
-              src={row['lead-image']}
-              alt={row.title}
-            />
-          ) : null}
-          <Typography className={classes.itemTitle} variant="h6">
-            {row['original-claim-title']}
-          </Typography>
-          <Typography className={classes.itemDescription} variant="body2">
-            {row['original-claim-body']}
-          </Typography>
-        </>
-      ),
-      minWidth: 550,
-      align: 'left',
-      group: 'claim',
-    },
-    {
-      id: 'created-at',
-      label: intl.formatMessage({
-        id: 'claim.firstSeen',
-        defaultMessage: 'First seen',
-        description:
-          'This is a header for a column in a search results table that contains the date that the original claim was first reported via Check.',
-      }),
-      apiField: 'created-at',
-      minWidth: 150,
-      format: (value) => {
-        const d = new Date(value);
-        const formatted = new Intl.DateTimeFormat().format(d).toString();
-        return formatted;
-      },
-      align: 'left',
-      group: 'claim',
-    },
-    {
-      id: 'media',
-      label: intl.formatMessage({
-        id: 'claim.media',
-        defaultMessage: 'Media',
-        description:
-          'This is a header for a column in a search results table that contains a link to the main "original source" of the claim that was reported to check. It can be a link to an image file, or to a web site.',
-      }),
-      minWidth: 100,
-      format: (val, row) => {
-        let value = '';
-        let href = '';
-        if (row['media-type'] === 'Link') {
-          href = row['original-claim-link'];
-          const url = new URL(href);
-          value = url.host;
-        } else if (row['media-type'] === 'UploadedImage') {
-          href = row['original-media'];
-          const fileName = href.match(/.+\/(.+)$/);
-          if (fileName) {
-            // match the group captured in the regex
-            [, value] = fileName;
-          }
-        }
-        return (
-          <Typography variant="body2">
-            {value ? <a href={href} target="_blank">{value}</a> : '-'}
-          </Typography>
-        );
-      },
-      align: 'left',
-      group: 'claim',
-    },
-    {
-      id: 'simliar-media',
-      label: intl.formatMessage({
-        id: 'claim.similarMedia',
-        defaultMessage: 'Similar media',
-        description:
-          'This is a header for a column in a search results table that contains the number of similar media items to this claim in Check.',
-      }),
-      apiField: 'similar-media',
-      minWidth: 150,
-      align: 'left',
-      group: 'claim',
-    },
-    {
-      id: 'claim-url',
-      label: intl.formatMessage({
-        id: 'claim.url',
-        defaultMessage: 'Claim URL',
-        description:
-          'This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.',
-      }),
-      apiField: 'check-url',
-      minWidth: 100,
-      format: (value) => <a href={value} target="_blank">{value}</a>,
-      align: 'left',
-      group: 'claim',
-    },
-    {
-      id: 'original-claim-author',
-      label: intl.formatMessage({
-        id: 'claim.source',
-        defaultMessage: 'Source',
-        description:
-          'This is a header for a column in a search results table that contains the URL of the original claim that was reported to Check.',
-      }),
-      apiField: 'original-claim-author',
-      minWidth: 100,
-      format: (value) => value || 'Unknown',
-      align: 'left',
-      group: 'claim',
     },
   ];
 
