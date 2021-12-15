@@ -252,7 +252,6 @@ function SearchResults(props) {
       minWidth: 100,
       align: 'left',
     },
-    */
     {
       id: 'score',
       label: intl.formatMessage({
@@ -266,6 +265,7 @@ function SearchResults(props) {
       align: 'left',
       format: (value) => value.toFixed(2),
     },
+    */
     {
       id: 'url',
       label: intl.formatMessage({
