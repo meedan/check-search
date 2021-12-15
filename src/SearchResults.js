@@ -227,6 +227,7 @@ function SearchResults(props) {
       ),
       align: 'left',
     },
+    /*
     {
       id: 'published',
       label: intl.formatMessage({
@@ -251,6 +252,7 @@ function SearchResults(props) {
       minWidth: 100,
       align: 'left',
     },
+    */
     {
       id: 'score',
       label: intl.formatMessage({
