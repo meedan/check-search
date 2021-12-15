@@ -227,6 +227,7 @@ function SearchResults(props) {
       ),
       align: 'left',
     },
+    /*
     {
       id: 'published',
       label: intl.formatMessage({
@@ -264,6 +265,7 @@ function SearchResults(props) {
       align: 'left',
       format: (value) => value.toFixed(2),
     },
+    */
     {
       id: 'url',
       label: intl.formatMessage({
