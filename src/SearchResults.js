@@ -267,6 +267,18 @@ function SearchResults(props) {
     },
     */
     {
+      id: 'content',
+      label: intl.formatMessage({
+        id: 'sort.content',
+        defaultMessage: 'Content',
+        description:
+          'This is a header for a column in a search results table that contains a field with the report content.',
+      }),
+      apiField: 'report-text-content',
+      minWidth: 100,
+      align: 'left',
+    },
+    {
       id: 'url',
       label: intl.formatMessage({
         id: 'sort.url',
