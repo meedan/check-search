@@ -24,7 +24,7 @@ build_qa:
     - develop
 
 deploy_qa:
-  image: python:3-alpine
+  image: python:3.9.13-alpine
   stage: deploy
   tags:
     - meedan
@@ -66,7 +66,7 @@ build_live:
     - main
 
 deploy_live:
-  image: python:3-alpine
+  image: python:3.9.13-alpine
   stage: deploy
   when: manual
   tags:
